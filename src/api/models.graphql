@@ -1,0 +1,21 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  phoneNumber: String!
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  text: String!
+  postCategory: PostCategory
+}
+
+enum PostCategory {
+  COMMON
+  JOB
+  ETC
+  REPAIR
+}
