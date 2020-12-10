@@ -1,0 +1,3 @@
+type Query {
+  seeFullPost(postCategory: PostCategory userId: Int): [Post!]!
+}

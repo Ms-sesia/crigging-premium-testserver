@@ -15,11 +15,12 @@ type Post {
   title: String!
   text: String!
   postCategory: PostCategory
+  postAuthor: User!
+  postAuthorId: Int!
 }
 
 enum PostCategory {
-  COMMON
   JOB
-  ETC
   REPAIR
+  ETC
 }
