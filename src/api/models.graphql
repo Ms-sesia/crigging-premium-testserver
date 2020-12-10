@@ -3,6 +3,10 @@ type User {
   name: String!
   email: String!
   phoneNumber: String!
+  following: [User!]!
+  followingCount: Int!
+  followers: [User!]!
+  followersCount: Int!
   posts: [Post!]!
 }
 

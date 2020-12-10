@@ -16,7 +16,8 @@ const verifyUser = async (payload, done) => {
   //   })
   // );
   try {
-    const user = await prisma.user.findUnique({ where: { id: Number(payload) } });
+    // const user = await prisma.user.findUnique({ where: { id: Number(payload) } });
+    const user = await prisma.user.findUnique({ where: { id: payload.id } });
     // console.log(user);
     if (user !== null) return done(null, user);
     else done(null, false);

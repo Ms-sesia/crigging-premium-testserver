@@ -31,5 +31,4 @@ export const sendSecretSMS = async (phoneNumber, secretCode) => {
   }
 };
 
-export const generateToken = (user) => jwt.sign(user.id, process.env.JWT_SECRET);
-
+export const generateToken = (user) => jwt.sign(user, process.env.JWT_SECRET);
