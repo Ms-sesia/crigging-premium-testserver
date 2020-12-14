@@ -1,3 +1,8 @@
 type Mutation {
-  editPost(id: Int!, title: String, text: String, postCategory: PostCategory, files: [String]): Post!
+  editPost(id: Int!, title: String, text: String, postCategory: PostCategory, actions: Actions! files: [String]): Post!
+}
+
+enum Actions{
+  EDIT
+  DELETE
 }

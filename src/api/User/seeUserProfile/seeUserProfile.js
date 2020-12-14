@@ -6,7 +6,7 @@ export default {
   Query: {
     seeUserProfile: async (_, args, { request }) => {
       try {
-        return await prisma.user.findUnique({ where: { id: Number(args.id) } });
+        return await prisma.user.findUnique({ where: { id: args.id } });
       } catch (e) {
         console.log(e);
         throw new Error("잘못된 정보입니다. 다시 입력해주세요.");

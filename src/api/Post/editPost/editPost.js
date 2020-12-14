@@ -6,21 +6,27 @@ export default {
   Mutation: {
     editPost: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
-      const { user } = request;
-      let { text, title, postCategory, files } = args;
-      if (!text) text = args.text;
-      if (!title) title = args.title;
-      if (!postCategory) postCategory = args.postCategory;
-      if (!files) files = args.files;
-      return await prisma.post.update({
-        where: { id: args.id },
-        data: {
-          text,
-          title,
-          postCategory,
-          files,
-        },
-      });
+      let { id, text, title, postCategory, files, actions } = args;
+      const post = await prisma.post.findUnique({ where: { id: id } });
+      console.log(post);
+      if (!text) text = post.text;
+      if (!title) title = post.title;
+      if (!postCategory) postCategory = post.postCategory;
+      if (!files) files = post.files;
+      
+      if (post) {
+        if (actions === "EDIT")
+          return await prisma.post.update({
+            where: { id: id },
+            data: {
+              text,
+              title,
+              postCategory,
+              files,
+            },
+          });
+        else if (actions === "DELETE") return await prisma.post.delete({ where: { id: id } });
+      } else throw new Error("해당 동작을 할 수 없습니다.");
     },
   },
 };

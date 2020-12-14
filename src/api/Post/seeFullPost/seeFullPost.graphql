@@ -1,3 +1,18 @@
 type Query {
-  seeFullPost(postCategory: PostCategory userId: Int): [Post!]!
+  # seeFullPost(postCategory: PostCategory, userId: Int, take: Int, cursor: Int orderBy: PostOrderByInput): [Post!]!
+  seeFullPost(postCategory: PostCategory, userId: Int, take: Int, cursor: Int orderBy: PostOrderByInput): Feed!
+}
+
+type Feed {
+  posts: [Post!]!
+  preCursor: Int!
+}
+
+input PostOrderByInput {
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
 }
