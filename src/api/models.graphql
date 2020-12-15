@@ -1,5 +1,5 @@
 type User {
-  id: ID!
+  id: Int!
   name: String!
   email: String!
   phoneNumber: String!
@@ -8,15 +8,53 @@ type User {
   followers: [User!]!
   followersCount: Int!
   posts: [Post!]!
+  postCount: Int!
+  likes: [Like!]!
+  comments: [Comment!]!
+  createdAt: String
+  updatedAt: String
 }
 
 type Post {
-  id: ID!
+  id: Int!
+  createdAt: String
+  updatedAt: String
   title: String!
   text: String!
   postCategory: PostCategory
   postAuthor: User!
   postAuthorId: Int!
+  files: [File!]!
+  likes: [Like!]!
+  isLiked: Boolean
+  comments: [Comment!]!
+  likeCount: Int!
+  commentCount: Int!
+}
+
+type File {
+  id: Int!
+  url: String!
+  post: Post!
+  createdAt: String
+  updatedAt: String
+}
+
+type Like {
+  id: Int!
+  createdAt: String
+  updatedAt: String
+  user: User!
+  post: Post!
+}
+
+type Comment {
+  id: Int!
+  createdAt: String
+  updatedAt: String
+  text: String!
+  user: User!
+  post: Post!
 }
 
 enum PostCategory {

@@ -13,14 +13,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).array("file");
 
-export const upload = (req, res, next) => {
+export const uploadPost = (req, res, next) => {
   upload(req, res, (err) => {
     if (err) return res.status(500).json(err);
     next();
   });
 };
 
-export const uploadController = (req, res) => {
+export const uploadPostController = (req, res) => {
   const { files } = req;
   const location = [];
   //resize 필요하면 추가.
