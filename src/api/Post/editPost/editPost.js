@@ -8,7 +8,6 @@ export default {
       isAuthenticated(request);
       let { id, text, title, postCategory, files, actions } = args;
       const post = await prisma.post.findUnique({ where: { id: id } });
-      console.log(post);
       if (!text) text = post.text;
       if (!title) title = post.title;
       if (!postCategory) postCategory = post.postCategory;
