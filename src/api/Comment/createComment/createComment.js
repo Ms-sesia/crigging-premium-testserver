@@ -11,7 +11,7 @@ export default {
       try {
         return await prisma.comment.create({
           data: {
-            text: args.text,
+            content: args.content,
             commentAuthor: { connect: { id: user.id } },
             post: { connect: { id: postId } },
           },

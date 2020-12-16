@@ -1,0 +1,11 @@
+type Mutation {
+  editOverWork(
+    overWorkId: Int!
+    date: String!
+    workingTime: String
+    location: String
+    content: String
+    amount: Int
+    overWorkCategory: OverWorkCategory
+  ): OverWork
+}

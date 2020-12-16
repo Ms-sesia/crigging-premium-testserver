@@ -4,6 +4,8 @@ import { isAuthenticated } from "./middlewares";
 import schema from "./schema";
 import { uploadPost, uploadPostController } from "./libs/upload";
 
+const PORT = process.env.SERVER_PORT || 4002;
+
 const server = new GraphQLServer({
   schema,
   context: ({ request }) => ({ request, isAuthenticated }),
@@ -12,4 +14,4 @@ const server = new GraphQLServer({
 server.express.use(authenticateJwt);
 server.express.post("/api/upload", uploadPost, uploadPostController);
 
-server.start(() => console.log("Server is running on localhost:4000"));
+server.start({ port: PORT }, () => console.log(`Server is running on localhost:${PORT}`));

@@ -1,0 +1,10 @@
+type Mutation {
+  createOverWork(
+    date: String!
+    workingTime: String
+    location: String
+    content: String
+    amount: Int
+    overWorkCategory: OverWorkCategory
+  ): OverWork
+}

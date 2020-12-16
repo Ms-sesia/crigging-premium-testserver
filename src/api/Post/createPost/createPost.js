@@ -10,7 +10,7 @@ export default {
       return await prisma.post.create({
         data: {
           title: args.title,
-          text: args.text,
+          content: args.content,
           postCategory: args.postCategory,
           files: args.files,
           postAuthor: { connect: { id: user.id } },

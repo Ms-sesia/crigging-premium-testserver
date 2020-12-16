@@ -20,7 +20,7 @@ type Post {
   createdAt: String
   updatedAt: String
   title: String!
-  text: String!
+  content: String!
   postCategory: PostCategory
   postAuthor: User!
   postAuthorId: Int!
@@ -52,13 +52,39 @@ type Comment {
   id: Int!
   createdAt: String
   updatedAt: String
-  text: String!
+  content: String!
   commentAuthor: User!
   post: Post!
 }
+
+type OverWork {
+  id: Int!
+  createdAt: String
+  updatedAt: String
+  date: String
+  yearMonth: String
+  yearMonthDay: String
+  week: Int
+  workingTime: String
+  location: String
+  content: String
+  amount: Int
+  overWorkCategory: OverWorkCategory
+  overWorkAuthor: User!
+}
+
+# scalar Date
 
 enum PostCategory {
   JOB
   REPAIR
   ETC
+}
+
+enum OverWorkCategory {
+  EARLY
+  NIGHT
+  ALLNIGHT
+  WEEKEND
+  OVERTIME
 }

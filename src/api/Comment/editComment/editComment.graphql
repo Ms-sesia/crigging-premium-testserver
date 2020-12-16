@@ -1,5 +1,5 @@
 type Mutation {
-  editComment(commentId: Int! actions: Actions! text: String): Boolean
+  editComment(commentId: Int! actions: Actions! content: String): Boolean
 }
 
 enum Actions{

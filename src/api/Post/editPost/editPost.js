@@ -6,9 +6,9 @@ export default {
   Mutation: {
     editPost: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
-      let { id, text, title, postCategory, files, actions } = args;
+      let { id, content, title, postCategory, files, actions } = args;
       const post = await prisma.post.findUnique({ where: { id: id } });
-      if (!text) text = post.text;
+      if (!content) content = post.content;
       if (!title) title = post.title;
       if (!postCategory) postCategory = post.postCategory;
       if (!files) files = post.files;
@@ -18,7 +18,7 @@ export default {
           return await prisma.post.update({
             where: { id: id },
             data: {
-              text,
+              content,
               title,
               postCategory,
               files,

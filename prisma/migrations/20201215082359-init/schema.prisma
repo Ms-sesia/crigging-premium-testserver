@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
@@ -30,7 +30,7 @@ model Post {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   title        String
-  content      String?
+  text         String?
   postCategory PostCategory
   comments     Comment[]
   likes        Like[]
@@ -41,7 +41,7 @@ model Post {
 
 model Comment {
   id              Int      @id @default(autoincrement())
-  content         String
+  text            String
   post            Post     @relation(fields: [postId], references: [id])
   postId          Int
   commentAuthor   User     @relation(fields: [commentAuthorId], references: [id])
@@ -78,13 +78,12 @@ model OverWork {
   yearMonth        String?
   yearMonthDay     String?
   week             Int
-  workingTime      String
   location         String
   content          String
   overWorkCategory OverWorkCategory
   amount           Int
-  overWorkAuthor   User             @relation(fields: [overWorkAuthorId], references: [id])
-  overWorkAuthorId         Int
+  author           User             @relation(fields: [authorId], references: [id])
+  authorId         Int
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
 }

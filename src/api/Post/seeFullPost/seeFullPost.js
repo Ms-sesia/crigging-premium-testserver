@@ -6,7 +6,13 @@ export default {
   Query: {
     seeFullPost: async (_, args, { request }) => {
       const { postCategory, userId, orderBy, take, cursor } = args;
-
+      console.log(1);
+      const test = await prisma.post.findMany({
+        where: {
+          OR: [{ postCategory: postCategory }, { postAuthorId: userId }],
+        },
+      });
+      console.log(test);
       const posts = cursor
         ? await prisma.post.findMany({
             take: take,
