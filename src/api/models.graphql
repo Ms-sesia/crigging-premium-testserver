@@ -61,7 +61,7 @@ type OverWork {
   id: Int!
   createdAt: String
   updatedAt: String
-  date: String
+  date: Date
   yearMonth: String
   yearMonthDay: String
   week: Int
@@ -73,7 +73,7 @@ type OverWork {
   overWorkAuthor: User!
 }
 
-# scalar Date
+scalar Date
 
 enum PostCategory {
   JOB
@@ -87,4 +87,9 @@ enum OverWorkCategory {
   ALLNIGHT
   WEEKEND
   OVERTIME
+}
+
+enum Actions {
+  EDIT
+  DELETE
 }

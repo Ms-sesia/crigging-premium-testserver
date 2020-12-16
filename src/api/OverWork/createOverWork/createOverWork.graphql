@@ -1,6 +1,6 @@
 type Mutation {
   createOverWork(
-    date: String!
+    date: Date!
     workingTime: String
     location: String
     content: String
