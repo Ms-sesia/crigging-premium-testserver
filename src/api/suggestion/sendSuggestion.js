@@ -1,11 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { sendMail } from "../../../utils";
+import { sendMail } from "../../utils";
 
 const prisma = new PrismaClient();
 
 export default {
   Mutation: {
-    sendOverWork: async (_, args, { request, isAuthenticated }) => {
+    sendSuggestion: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
       const { title, content } = args;

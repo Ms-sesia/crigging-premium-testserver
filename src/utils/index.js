@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import * as aligo from "../libs/aligo";
 import "../env";
+import nodemailer from "nodemailer";
 
 export const generateSecretCode = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -32,3 +33,28 @@ export const sendSecretSMS = async (phoneNumber, secretCode) => {
 };
 
 export const generateToken = (user) => jwt.sign(user, process.env.JWT_SECRET);
+
+export const sendMail = async (email, title, content) => {
+  const transporter = nodemailer.createTransport({
+    service: "worksmobile",
+    host: "smtp.worksmobile.com",
+    port: 587,
+    auth: {
+      user: process.env.TESTMAIL_ID,
+      pass: process.env.TESTMAIL_PW,
+    },
+  });
+
+  const option = {
+    from: `"Platcube" <${process.env.TESTMAIL_ID}>`,
+    // from: `"Platcube" <${process.env.PLATCUBEMAIL_ID}`,
+    to: email,
+    subject: title,
+    text: content,
+    // html: `<b>${testmailtext}</b>`,
+  };
+
+  const info = await transporter.sendMail(option);
+
+  return info;
+};

@@ -1,0 +1,3 @@
+type Mutation {
+  sendOverWork(title: String!, content: String!): Boolean
+}
