@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import * as aligo from "../libs/aligo";
+import * as aligo from "../../libs/aligo";
 import "../env";
 import nodemailer from "nodemailer";
 

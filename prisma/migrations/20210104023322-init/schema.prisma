@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
@@ -75,73 +75,73 @@ model craneDataRecord {
 }
 
 model RiggingData {
-  id                       Int               @id @default(autoincrement())
-  mainBoom                 Float
-  mainAngle                Float
-  totalExtLength           Float
-  adapter1                 Float
-  extBoom1                 Float
-  extBoom2                 Float
-  extBoom3                 Float
-  extBoom4                 Float
-  adapter2                 Float
-  flyFixLuffing            Float
-  flyFixLuffingAngle       Float
-  distance1                Float
-  distance2                Float
-  craneDistance            Float
-  edgeDistance             EdgeDistance      @relation(fields: [edgeDistanceId], references: [id])
-  edgeDistanceId           Int
-  centerToBuildingDistance Float
-  centerToBlockDistance    Float
-  craneToBuildingDistance  Float
-  craneToBlockDistance     Float
-  totalDistance            Float
-  tableDistance            Float
-  height1                  Float
-  height2                  Float
-  totalHeight              Float
-  marginHeight             Float
-  workingArea              Float
-  tableWeight              Float
-  counterWeight            String
-  overRear                 String
-  optional                 String
-  safetyFactor             Float
-  craneLocation            String
-  workWeight               Float
-  workBuilding             WorkBuilding      @relation(fields: [workBuildingId], references: [id])
-  workBuildingId           Int
-  block                    Block             @relation(fields: [blockId], references: [id])
-  blockId                  Int
-  craneDataRecord          craneDataRecord[]
+  id                      Int               @id @default(autoincrement())
+  mainBoom                Int
+  mainAngle               Int
+  totalExtLength          Int
+  adapter1                Int
+  extBoom1                Int
+  extBoom2                Int
+  extBoom3                Int
+  extBoom4                Int
+  adapter2                Int
+  flyFixLuffing           Int
+  flyFixLuffingAngle      Int
+  distance1               Int
+  distance2               Int
+  craneDistance           Int
+  edgeDistance            EdgeDistance      @relation(fields: [edgeDistanceId], references: [id])
+  edgeDistanceId          Int
+  centerToBlockDistance   Int
+  craneToBuildingDistance Int
+  craneToBlockDistance    Int
+  totalDistance           Int
+  tableDistance           Int
+  height1                 Int
+  height2                 Int
+  totalHeight             Int
+  marginHeight            Int
+  workingArea             Int
+  tableWeight             Int
+  counterWeight           String
+  overRear                String
+  optional                String
+  safetyFactor            Int
+  craneLocation           String
+  workWeight              Int
+  workBuilding            WorkBuilding      @relation(fields: [workBuildingId], references: [id])
+  workBuildingId          Int
+  block                   Block             @relation(fields: [blockId], references: [id])
+  blockId                 Int
+  // craneDataRecord         craneDataRecord[]
 }
 
 model EdgeDistance {
-  id                      Int           @id @default(autoincrement())
-  mainToBlock             Float
-  mainToBuilding          Float
-  flyFixLuffingToBlock    Float
-  flyFixLuffingToBuilding Float
-  RiggingData             RiggingData[]
+  id                       Int           @id @default(autoincrement())
+  mainToBlock              Int
+  mainToBuilding           Int
+  flyFixLuffingToBlock     Int
+  flyFixLuffingToBuilding  Int
+  centerToBuildingDistance Int
+  // RiggingData              RiggingData[]
 }
 
 model WorkBuilding {
   id          Int           @id @default(autoincrement())
-  horizontal  Float
-  vertical    Float
-  height      Float
-  RiggingData RiggingData[]
+  horizontal  Int
+  vertical    Int
+  height      Int
+  // RiggingData RiggingData[]
 }
 
 model Block {
   id          Int           @id @default(autoincrement())
-  vertical1   Float
-  horizontal1 Float
-  height1     Float
-  vertical2   Float
-  height2     Float
-  RiggingData RiggingData[]
+  vertical1   Int
+  horizontal1 Int
+  height1     Int
+  vertical2   Int
+  height2     Int
+  // RiggingData RiggingData[]
 }
 
 model OverWork {

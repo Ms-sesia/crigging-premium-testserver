@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import dateKinds from "../../../libs/dateKinds";
+import dateKinds from "../../../../libs/dateKinds";
 
 const prisma = new PrismaClient();
 
@@ -10,7 +10,7 @@ export default {
       const { user } = request;
       const { date, workingTime, location, content, amount, overWorkCategory } = args;
       const { week, yearMonth, yearMonthDay } = dateKinds(date);
-      
+
       if (!date) throw new Error("날짜를 선택하세요.");
       if (!workingTime) throw new Error("작업시간을 입력하세요.");
       if (!location) throw new Error("작업 위치를 입력하세요.");

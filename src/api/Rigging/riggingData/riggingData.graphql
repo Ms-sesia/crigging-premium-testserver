@@ -1,0 +1,23 @@
+type Mutation {
+  riggingData(
+    safetyFactor: Float!
+    craneLocation: String!
+    workBuilding: workBuildingInput!
+    workWeight: Float!
+    block: BlockInput
+  ): [CraneList!]!
+}
+
+input BlockInput {
+  vertical1: Float
+  horizontal1: Float
+  height1: Float
+  vertical2: Float
+  height2: Float
+}
+
+input workBuildingInput {
+  horizontal: Float
+  vertical: Float!
+  height: Float!
+}

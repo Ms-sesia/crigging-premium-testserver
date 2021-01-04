@@ -2,7 +2,7 @@ import { GraphQLServer } from "graphql-yoga";
 import { authenticateJwt } from "./passport";
 import { isAuthenticated } from "./middlewares";
 import schema from "./schema";
-import { uploadPost, uploadPostController } from "./libs/upload";
+import { uploadPost, uploadPostController } from "../libs/upload";
 
 const PORT = process.env.SERVER_PORT || 4002;
 

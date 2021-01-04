@@ -1,0 +1,40 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "craneDataRecord",
+      "field": "riggingIndex",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "RiggingData",
+      "field": "craneDataRecord",
+      "type": "craneDataRecord",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "EdgeDistance",
+      "field": "RiggingData",
+      "type": "RiggingData",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "WorkBuilding",
+      "field": "RiggingData",
+      "type": "RiggingData",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Block",
+      "field": "RiggingData",
+      "type": "RiggingData",
+      "arity": "List"
+    }
+  ]
+}

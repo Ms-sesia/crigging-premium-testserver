@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import dateKinds from "../../../libs/dateKinds";
+import dateKinds from "../../../../libs/dateKinds";
 
 const prisma = new PrismaClient();
 
