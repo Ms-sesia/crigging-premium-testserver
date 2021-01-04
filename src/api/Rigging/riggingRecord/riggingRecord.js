@@ -114,7 +114,7 @@ export default {
             block: { connect: { id: Block.id } },
           },
         });
-        await prisma.craneDataRecord.create({
+        await prisma.craneData.create({
           data: {
             riggingIndex,
             craneName,

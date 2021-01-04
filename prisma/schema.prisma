@@ -19,7 +19,7 @@ model User {
   posts           Post[]
   comments        Comment[]
   likes           Like[]
-  riggingRecord   craneDataRecord[]
+  riggingRecords  CraneData[]
   overWorks       OverWork[]
   following       User[]            @relation("FollowRelation", references: [id])
   followers       User[]            @relation("FollowRelation", references: [id])
@@ -60,7 +60,7 @@ model Like {
   postId    Int
 }
 
-model craneDataRecord {
+model CraneData {
   id             Int         @id @default(autoincrement())
   createdAt      DateTime    @default(now())
   riggingIndex   Int
@@ -114,7 +114,6 @@ model RiggingData {
   workBuildingId           Int
   block                    Block             @relation(fields: [blockId], references: [id])
   blockId                  Int
-  craneDataRecord          craneDataRecord[]
 }
 
 model EdgeDistance {
@@ -123,7 +122,6 @@ model EdgeDistance {
   mainToBuilding          Float
   flyFixLuffingToBlock    Float
   flyFixLuffingToBuilding Float
-  RiggingData             RiggingData[]
 }
 
 model WorkBuilding {
@@ -131,7 +129,6 @@ model WorkBuilding {
   horizontal  Float
   vertical    Float
   height      Float
-  RiggingData RiggingData[]
 }
 
 model Block {
@@ -141,7 +138,6 @@ model Block {
   height1     Float
   vertical2   Float
   height2     Float
-  RiggingData RiggingData[]
 }
 
 model OverWork {
