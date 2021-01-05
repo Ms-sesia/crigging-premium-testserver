@@ -12,11 +12,6 @@ export default {
         workBuilding,
         block,
       };
-      const riggingData = getRiggingData(riggingInputData);
-      const jsontest = JSON.stringify(riggingData[riggingData.length - 1]);
-      console.log(riggingData[riggingData.length - 1]);
-      console.log(jsontest);
-      console.log(JSON.parse(jsontest));
 
       return getRiggingData(riggingInputData);
     },

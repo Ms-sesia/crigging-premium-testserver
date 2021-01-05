@@ -45,7 +45,7 @@ function wirePoints(wireComposition, wireData) {
       })
   }
   return wireComposition.map(arr => {
-    console.log("wireCompositionArray",arr);
+    // console.log("wireCompositionArray",arr);
     if(wireData[arr.from.name] && wireData[arr.to.name] ) {
       const from = wireData[arr.from.name][arr.from.number];
       const to = wireData[arr.to.name][arr.to.number];

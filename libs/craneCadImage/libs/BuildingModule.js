@@ -1,5 +1,5 @@
 class BuildingModule{
-  constructor(offSetX, offSetY, width, height, type, ctx, ppm, centerX,distance, markPosition=[], markOffset= 0, fontSize= 30) {
+  constructor(offSetX, offSetY, width, height, type, ctx, ppm, centerX,distance, markPosition=[], markOffset= 0, markOffsetLR= 0,fontSize= 30) {
     this.offSetX = offSetX;
     this.offSetY = offSetY;
     this.width = ppm * width;
@@ -12,6 +12,7 @@ class BuildingModule{
     this.markPosition = markPosition;
     this.color = 'grey';
     this.markOffset = markOffset;
+    this.markOffsetLR = markOffsetLR;
     this.fontSize = fontSize;
     this.initialSetup(type);
   }
@@ -87,15 +88,15 @@ class BuildingModule{
   drawGuideLine(markPosition, textColor) {
     this.markOffset = 0;
     const spaceOffsetY = 20 + this.markOffset;
-    const spaceOffsetX = 20 + this.markOffset;
+    const spaceOffsetX = 20 + this.markOffsetLR;
     const rowLineOffsetY = 30;
     const rowLineOffsetX = this.width/6;
     const columnLineOffsetY = this.height/6;
     const columnLineOffsetX = 30;
     // Text
-    const textOffsetRight = 80 + this.markOffset;
+    const textOffsetRight = 80 + this.markOffsetLR;
     const textOffsetBottom = 70 + this.markOffset;
-    const textOffsetLeft = 160 + this.markOffset;
+    const textOffsetLeft = 160 + this.markOffsetLR;
     const textOffsetTop = 50 + this.markOffset;
     const correctPosition = 40; // 폭을 나타내는 글자가 중간에서 시작하지 않기때문에 보정해줌
     const fontSize = this.fontSize;

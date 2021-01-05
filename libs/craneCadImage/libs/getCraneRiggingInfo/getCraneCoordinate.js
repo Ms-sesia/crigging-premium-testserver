@@ -3,7 +3,7 @@ const LineMarkerModule = require("../LineMarkerModule");
 const AngleMarker = require("../AngleMarker");
 
 
-const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, offSetY) => {
+const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, offSetY, pixelPerMeter) => {
   let prevPartsNextCoord = {x: 0, y: 0}; // 이전 파츠 값을 저장하기위한 좌표
   let additionalParts = {}; //추가 파츠 좌표 저장 객체
   let markerRef = {};
@@ -23,15 +23,7 @@ const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, off
     let tipLengthBottom, tipOffset;
     tipLengthBottom = 500;  
     tipOffset = 500;
-    // 작은 모듈에서 마커 값 겹침 문제 해결을 위해...
-    // if (index % 2 === 0){ // 짝수 번째 모듈만 팁을 좀 크게 
-    //   tipLengthBottom = 500;  
-    //   tipOffset = 500;
-    // } else { // 홀수 번째 모듈만 팁을 좀 작게
-    //   tipLengthBottom = 470;  
-    //   tipOffset = 470;
-    // }
-
+  
     // 파츠 객체 생성
     const mod = new CraneModule(
       part,
@@ -69,7 +61,7 @@ const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, off
             // value: mod.angle
           },
         }
-        console.log(markerRef);
+        // console.log(markerRef);
         break;
       }
       case 'T': {
@@ -135,13 +127,15 @@ const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, off
         }
 
         // 마커 그리기
+        // const radius = pixelPerMeter * craneData.flyFixLuffing * (1/5); 
+        const radius = 300;
         const flyFixLuffingAngle1 = new AngleMarker(
           ctx,
           markerRef.fixStart,
           markerRef.jibAngle.flyFixLuffingAngle,
           markerRef.jibAngle.mainAngle,
           markerRef.jibAngle.flyFixLuffingAngle,
-          400,
+          radius,
           {size: 40, color: 'black'},
           'jib'
         );
@@ -169,13 +163,15 @@ const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, off
           fixMarkerEnd: { ...mod.pointInfo.markerEnd }
         }
         // 마커 그리기
+        // const radius = pixelPerMeter * craneData.flyFixLuffing * (1/5); 
+        const radius = 300;
         const flyFixLuffingAngle1 = new AngleMarker(
           ctx,
           markerRef.fixStart,
           markerRef.jibAngle.flyFixLuffingAngle,
           markerRef.jibAngle.mainAngle,
           markerRef.jibAngle.flyFixLuffingAngle,
-          400,
+          1000,
           {size: 40, color: 'black'},
           'jib'
         );

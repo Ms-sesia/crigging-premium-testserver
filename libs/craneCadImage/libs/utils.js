@@ -45,6 +45,68 @@ function getPixelPerMeter(partsData){
   }
 }
 
+// function getPixelPermeter(craneName) {
+//   let pixelPerMeter;
+//   switch(craneName){
+//     case 'L_1030_2.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1040_2.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1050_3.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1055_3.2':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1060_3.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1070_4.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1070_4.2':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1090_4.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1095_5.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1100_4.2':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1100_4.2':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+    
+//     case 'L_1500_84m_8.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     case 'L_1500_50m_8.1':{
+//       pixelPerMeter = 31;
+//       break;
+//     }
+//     default:
+//       pixelPerMeter = 50; 
+//   }
+//   return pixelPerMeter;
+// }
+
 module.exports = {
   abbreviatePartName,
   getPoint,

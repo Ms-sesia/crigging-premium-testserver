@@ -16,10 +16,10 @@ function getCraneRiggingInfo(craneInfo, canvasRef, offSetX, offSetY, pixelPerMet
     if (craneData && partsData && partsList) {
       const modulesA = convertCraneData(craneData, partsData, partsList); //크레인정보 입력된 데이터 객체
 
-      let {modParts, markerRef, transParts} = await getCraneCoordinate(canvasRef, modulesA, craneData, offSetX, offSetY).catch((err) => {
+      let {modParts, markerRef, transParts} = await getCraneCoordinate(canvasRef, modulesA, craneData, offSetX, offSetY, pixelPerMeter).catch((err) => {
         console.log(err)
       });
-      console.log(markerRef);
+      // console.log(markerRef);
       const buildParts = await getBuildingCoordinate(canvasRef, craneData, markerRef, offSetX, offSetY, pixelPerMeter).catch((err) => {
         console.log(err)
       });

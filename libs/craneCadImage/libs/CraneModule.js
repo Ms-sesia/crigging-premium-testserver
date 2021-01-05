@@ -43,10 +43,19 @@ class CraneModule {
     this.part = part;
     this.pointInfo = {
     };
+
     this.tipLengthTop = markerOption.tipLengthTop; //30
     this.tipLengthBottom = markerOption.tipLengthBottom; //30  
     this.tipOffset = markerOption.tipOffset; //150
     this.markerPosition = markerOption.position;
+    // jibParts일때 포지션과 옵셋이 달라야 하기 때문에
+    
+    if(part.type === 'jibParts') {
+      this.tipLengthTop =  30
+      this.tipLengthBottom = 30  
+      this.tipOffset = 150
+      this.markerPosition = 'down';  
+    } 
   }
 
   rotate(x1, y1, x2, y2, wX, wY, radianAngle) {
@@ -245,7 +254,8 @@ class CraneModule {
   async draw() {
     // calculate draw point
       this.calculateCoordination();
-      await loadImage(this.imgSrc).then( (image) => {
+      const imgSrc = __dirname + '/../../../data/images/' + this.imgSrc;
+      await loadImage(imgSrc).then( (image) => {
         this.ctx.translate(this.x1 - this.rotateX1, this.y1 - this.rotateY1)  // 회전 위치 보정
         this.ctx.translate(this.offSetX + this.wX - this.x1, this.offSetY + this.wY - this.y1);   // 변환 위치로 이동
         this.ctx.rotate(-1 * this.radianAngle); // 회전

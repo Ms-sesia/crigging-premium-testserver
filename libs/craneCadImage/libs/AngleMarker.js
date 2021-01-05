@@ -45,7 +45,7 @@ class AngleMarker extends LineMarkerModule{
     const start2 = end1 + ONE_THIRD; // 두번째 호의 시작
     const end2 = start2 + ONE_THIRD; // 두번째 호의 끝
 
-    let markerSize = (x+radius*(4/3)); // 마커 라인의 길이 (호의 반지름의 4/3)
+    let markerSize = (x+radius*(10/8)); // 마커 라인의 길이 (호의 반지름의 10/8)
 
     const mainLine = rotate(x, y, markerSize, y, mainRadianAngle); // boomAngle의 라인
     const diffLine = rotate(x, y, markerSize, y, diffRadianAngle); // diffAngle = boomAngle-fixAngle의 라인

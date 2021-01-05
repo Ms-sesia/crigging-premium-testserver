@@ -1,21 +1,23 @@
 const BuildingModule = require("../BuildingModule");
 const LineMarkerModule = require("../LineMarkerModule");
 const {getPoint} = require("../utils");
+const edgeDistance = require("../edgeDistance");
 
 const getBuildingCoordinate = async (_canvasRef, {craneData}, markerRef,  offSetX, offSetY, pixelPerMeter) => {
   const ctx = _canvasRef.getContext('2d');
-  console.log(markerRef);
+  // console.log(markerRef);
+  
   // 주어진 거리값[m]을 좌표값(x,y)으로 변환
   const pointFromCenter = getPoint({
     x: markerRef.center.x,
     y: markerRef.center.y
   }, pixelPerMeter);
 
-  const blockPoint2 = pointFromCenter(craneData.centerToBlockDistance); // 중심에서 여유거리
-  const blockPoint1 = pointFromCenter(craneData.centerToBlockDistance + craneData.block.vertical2); // 중심에서 장애물까지 거리
-  const buildingPoint = pointFromCenter(craneData.centerToBuildingDistance);// 중심에서 건물까지 거리
-  const rearPoint = pointFromCenter(craneData.craneDistance); // 중심에서 크레인 리어까지 거리
-  const totalPoint = pointFromCenter(craneData.totalDistance); // 중심에서 크레인의 가장 끝(픽스 끝)까지 거리
+  const blockPoint2 = pointFromCenter(craneData.centerToBlockDistance); // 중심에서 여유거리 좌표
+  const blockPoint1 = pointFromCenter(craneData.centerToBlockDistance + craneData.block.vertical2); // 중심에서 장애물까지 거리 좌표
+  const buildingPoint = pointFromCenter(craneData.centerToBuildingDistance);// 중심에서 건물까지 거리 좌표
+  const rearPoint = pointFromCenter(craneData.craneDistance); // 중심에서 크레인 리어까지 거리 좌표
+  const totalPoint = pointFromCenter(craneData.totalDistance); // 중심에서 크레인의 가장 끝(픽스 끝)까지 거리 좌표
 
   let blockPart; // 진짜 장애물
   let block2Part; // 작은 장애물
@@ -62,13 +64,14 @@ const getBuildingCoordinate = async (_canvasRef, {craneData}, markerRef,  offSet
     craneData.centerToBuildingDistance,
     ['right', 'bottom'],
     0,
+    200,
   );
-  // 투명 빌딩 
+  // 투명 빌딩 (건물위부터 크레인 헤드의 끝까지)
   const emptyBuildingPart = new BuildingModule(
-    offSetX,
+    offSetX, // pixel 단위값
     offSetY - pixelPerMeter * craneData.workBuilding.height,
     craneData.workBuilding.vertical,
-    craneData.totalHeight - craneData.workBuilding.height,
+    (offSetY - markerRef.end.y)/pixelPerMeter - craneData.workBuilding.height, //m 단위 값
     'Empty',
     ctx,
     pixelPerMeter,
@@ -76,6 +79,7 @@ const getBuildingCoordinate = async (_canvasRef, {craneData}, markerRef,  offSet
     craneData.centerToBuildingDistance,
     ['right'],
     0,
+    200,
   );
 
   // craneData에서 craneData를 추출하여
@@ -123,11 +127,11 @@ const getBuildingCoordinate = async (_canvasRef, {craneData}, markerRef,  offSet
     {...markerRef.center},
     {...markerRef.blockDistance2},
     markerRef.blockDistance2.value, 15, 15, 30);
-  let craneDistanceLine = new LineMarkerModule(
-    ctx,
-    {...markerRef.center},
-    {...markerRef.rearPoint},
-    markerRef.craneDistance.value, 15, 15, 30);
+  // let craneDistanceLine = new LineMarkerModule(
+  //   ctx,
+  //   {...markerRef.center},
+  //   {...markerRef.rearPoint},
+  //   markerRef.craneDistance.value, 15, 15, 30);
 
   let totalDistanceLine = new LineMarkerModule(
     ctx,
@@ -144,20 +148,25 @@ const getBuildingCoordinate = async (_canvasRef, {craneData}, markerRef,  offSet
     36);
   // const buildingToCraneHeadValue = craneData.totalHeight - craneData.workBuilding.height;
 
-  craneDistanceLine.calculateGuidelinePosition().applyOffset(100, 'down');
-  blockLine.calculateGuidelinePosition().applyOffset(200, 'down');
-  totalDistanceLine.calculateGuidelinePosition().applyOffset(300, 'down');
-  blockToBuildingLine.calculateGuidelinePosition().applyOffset(48, 'down'); // 값이 없으면 표시하지 않을것이다
+  // craneDistanceLine.calculateGuidelinePosition().applyOffset(100, 'down');
+  blockLine.calculateGuidelinePosition().applyOffset(34, 'down');
+  totalDistanceLine.calculateGuidelinePosition().applyOffset(200, 'down');
+  blockToBuildingLine.calculateGuidelinePosition().applyOffset(34, 'down'); // 값이 없으면 표시하지 않을것이다
 
+  const edgeBuildingPoint = {x: buildingPoint.x, y: -craneData.workBuilding.height*pixelPerMeter + buildingPoint.y}
+  const edgeBlockPoint = {x: blockPoint1.x, y: -craneData.block.height1*pixelPerMeter + blockPoint1.y}
+  const edgeDist = edgeDistance(pixelPerMeter, edgeBuildingPoint, edgeBlockPoint, craneData.edgeDistance, ctx)
+    
   const buildParts = [
     block2Part,
     buildingPart,
     emptyBuildingPart,
     blockPart,
     blockLine,
-    craneDistanceLine,
+    // craneDistanceLine,
     totalDistanceLine,
     blockToBuildingLine,
+    ...edgeDist,
   ];
   return buildParts
 }

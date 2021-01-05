@@ -29,7 +29,7 @@ function convertCraneData({ craneData }, partsData, partsList) {
       case 'jibParts': {
         partsData[moduleName].angle = (craneData.mainAngle - craneData.flyFixLuffingAngle);
         partsData[moduleName].mainAngle = craneData.mainAngle;
-        partsData[moduleName].flyFixLuffingAngle = craneData.flyFixLuffingAngle;
+        partsData[moduleName].flyFixLuffingAngle = craneData.flyFixLuffingAngle; 
         // partsData[moduleName].length = craneData.flyFixLuffing;
         break;
       }
