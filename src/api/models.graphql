@@ -14,6 +14,7 @@ type User {
   riggingRecords: [CraneData!]!
   createdAt: String
   updatedAt: String
+  purchaseHistory: [PurchaseHistory!]!
 }
 
 type Post {
@@ -145,6 +146,15 @@ type EdgeDistance {
   mainToBuilding: Float
   flyFixLuffingToBlock: Float
   flyFixLuffingToBuilding: Float
+}
+
+type PurchaseHistory {
+  id: Int!
+  date: String
+  cardCompany: String
+  price: Float
+  installment: String
+  receipt: String
 }
 
 scalar Date

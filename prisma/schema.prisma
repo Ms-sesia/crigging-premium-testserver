@@ -23,7 +23,7 @@ model User {
   overWorks       OverWork[]
   following       User[]            @relation("FollowRelation", references: [id])
   followers       User[]            @relation("FollowRelation", references: [id])
-  PurchaseHistory PurchaseHistory[]
+  purchaseHistory PurchaseHistory[]
 }
 
 model Post {

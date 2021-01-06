@@ -31,7 +31,7 @@ export default {
     likes: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).likes(),
     posts: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).posts(),
     riggingRecords: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).craneDataRecord(),
-    // posts: async (parent) => await prisma.post.findMany({ where: { postAuthorId: parent.id } }),
+    purchaseHistory: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).purchaseHistory(),
     postCount: async (parent) => {
       try {
         const postsCount = await prisma.post.findMany({
