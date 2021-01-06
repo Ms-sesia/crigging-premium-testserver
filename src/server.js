@@ -5,7 +5,8 @@ import schema from "./schema";
 import { uploadPost, uploadPostController } from "../libs/upload";
 import morgan from "morgan";
 
-const PORT = process.env.SERVER_PORT || 4002;
+// const PORT = process.env.SERVER_PORT || 4002;
+const PORT = process.env.SERVER_PORT;
 
 const server = new GraphQLServer({
   schema,

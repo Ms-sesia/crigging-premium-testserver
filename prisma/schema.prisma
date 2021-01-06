@@ -23,6 +23,7 @@ model User {
   overWorks       OverWork[]
   following       User[]            @relation("FollowRelation", references: [id])
   followers       User[]            @relation("FollowRelation", references: [id])
+  PurchaseHistory PurchaseHistory[]
 }
 
 model Post {
@@ -75,7 +76,7 @@ model CraneData {
 }
 
 model RiggingData {
-  id                       Int               @id @default(autoincrement())
+  id                       Int          @id @default(autoincrement())
   mainBoom                 Float
   mainAngle                Float
   totalExtLength           Float
@@ -90,7 +91,7 @@ model RiggingData {
   distance1                Float
   distance2                Float
   craneDistance            Float
-  edgeDistance             EdgeDistance      @relation(fields: [edgeDistanceId], references: [id])
+  edgeDistance             EdgeDistance @relation(fields: [edgeDistanceId], references: [id])
   edgeDistanceId           Int
   centerToBuildingDistance Float
   centerToBlockDistance    Float
@@ -110,9 +111,9 @@ model RiggingData {
   safetyFactor             Float
   craneLocation            String
   workWeight               Float
-  workBuilding             WorkBuilding      @relation(fields: [workBuildingId], references: [id])
+  workBuilding             WorkBuilding @relation(fields: [workBuildingId], references: [id])
   workBuildingId           Int
-  block                    Block             @relation(fields: [blockId], references: [id])
+  block                    Block        @relation(fields: [blockId], references: [id])
   blockId                  Int
 }
 
@@ -164,6 +165,19 @@ model File {
   url       String
   post      Post?    @relation(fields: [postId], references: [id])
   postId    Int?
+}
+
+model PurchaseHistory {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  date        String
+  cardCompany String
+  price       Float
+  installment String
+  receipt     String
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
 }
 
 enum PostCategory {
