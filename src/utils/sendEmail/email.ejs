@@ -1,0 +1,145 @@
+<% if(early.length !== 0){ %>
+  <h3>조출</h3>
+  <table>
+      <tr>
+          <th class="work-date" >날짜</th>
+          <th>시간</th>
+          <th>위치</th>
+          <th>작업내용</th>
+          <th>금액</th>
+      </tr>
+      <tr><td colspan="5"><hr/></td></tr>
+  <% for(var i=0 ; i< early.length ; i++){ %>
+          <tr>
+              <td class="work-date-value"><%= early[i].yearMonthDay %></td>
+              <td><%= early[i].term %></td>
+              <td><%= early[i].location %></td>
+              <td><%= early[i].content %></td>
+              <td><%= early[i].amount %></td>
+          </tr>
+  <%}%>
+  </table>
+  <br/>
+  <br/>
+<% } %>
+
+<% if(night.length !== 0){ %>
+  <h3>야간</h3>
+  <table>
+      <tr>
+          <th class="work-date" >날짜</th>
+          <th>시간</th>
+          <th>위치</th>
+          <th>작업내용</th>
+          <th>금액</th>
+      </tr>
+      <tr><td colspan="5"><hr/></td></tr>
+      <% for(let i=0 ; i< night.length ; i++){ %>
+          <tr>
+              <td class="work-date-value"><%= night[i].yearMonthDay %></td>
+              <td><%= night[i].term %></td>
+              <td><%= night[i].location %></td>
+              <td><%= night[i].content %></td>
+              <td><%= night[i].amount %></td>
+          </tr>
+      <%}%>
+  </table>
+  <br/>
+  <br/>
+<% } %>
+
+<% if(allnight.length !== 0){ %>
+  <h3>철야</h3>
+  <table>
+      <tr>
+          <th class="work-date" >날짜</th>
+          <th>시간</th>
+          <th>위치</th>
+          <th>작업내용</th>
+          <th>금액</th>
+      </tr>
+      <tr><td colspan="5"><hr/></td></tr>
+      <% for(let i=0 ; i< allnight.length ; i++){ %>
+          <tr>
+              <td class="work-date-value"><%= allnight[i].yearMonthDay %></td>
+              <td><%= allnight[i].term %></td>
+              <td><%= allnight[i].location %></td>
+              <td><%= allnight[i].content %></td>
+              <td><%= allnight[i].amount %></td>
+          </tr>
+      <%}%>
+  </table>
+  <br/>
+  <br/>
+<% } %>
+
+<% if(weekend.length !== 0){ %>
+  <h3>주말</h3>
+  <table>
+      <tr>
+          <th class="work-date" >날짜</th>
+          <th>시간</th>
+          <th>위치</th>
+          <th>작업내용</th>
+          <th>금액</th>
+      </tr>
+      <tr><td colspan="5"><hr/></td></tr>
+      <% for(let i=0 ; i< weekend.length ; i++){ %>
+          <tr>
+              <td class="work-date-value"><%= weekend[i].yearMonthDay %></td>
+              <td><%= weekend[i].term %></td>
+              <td><%= weekend[i].location %></td>
+              <td><%= weekend[i].content %></td>
+              <td><%= weekend[i].amount %></td>
+          </tr>
+      <%}%>
+  </table>
+  <br/>
+  <br/>
+<% } %>
+
+<% if(overtime.length !== 0){ %>
+  <h3>추가작업</h3>
+  <table>
+      <tr>
+          <th class="work-date" >날짜</th>
+          <th>시간</th>
+          <th>위치</th>
+          <th>작업내용</th>
+          <th>금액</th>
+      </tr>
+      <tr><td colspan="5"><hr/></td></tr>
+      <% for(let i=0 ; i< overtime.length ; i++){ %>
+          <tr>
+              <td class="work-date-value"><%= overtime[i].yearMonthDay %></td>
+              <td><%= overtime[i].term %></td>
+              <td><%= overtime[i].location %></td>
+              <td><%= overtime[i].content %></td>
+              <td><%= overtime[i].amount %></td>
+          </tr>
+      <%}%>
+  </table>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+<% } %>
+
+<h3>합계</h3>
+<table>
+  <tr>
+      <th class="work-date"></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>합계금액</th>
+  </tr>
+  <tr><td colspan="5"><hr/></td></tr>
+  <tr>
+      <td class="work-date-value"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= _sumOfCost%></td>
+  </tr>
+</table>

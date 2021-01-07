@@ -4,8 +4,8 @@ import { isAuthenticated } from "./middlewares";
 import schema from "./schema";
 import { uploadPost, uploadPostController } from "../libs/upload";
 import morgan from "morgan";
+import cors from "cors";
 
-// const PORT = process.env.SERVER_PORT || 4002;
 const PORT = process.env.SERVER_PORT;
 
 const server = new GraphQLServer({
@@ -13,7 +13,8 @@ const server = new GraphQLServer({
   context: ({ request }) => ({ request, isAuthenticated }),
 });
 
-// server.express.use(morgan("dev"));
+server.express.use(morgan("dev"));
+server.express.use(cors());
 server.express.use(authenticateJwt);
 server.express.post("/api/upload", uploadPost, uploadPostController);
 

@@ -1,3 +1,13 @@
 type Mutation {
-  sendOverWork(title: String!, content: String!): Boolean
+  # sendOverWork(title: String!, content: String!): Boolean
+  sendOverWork(yearMonth: String! orderBy: OverworkOrderByInput): Boolean
+}
+
+input OverworkOrderByInput {
+  date: Sort
+}
+
+enum Sort {
+  asc
+  desc
 }
