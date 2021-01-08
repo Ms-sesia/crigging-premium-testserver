@@ -1,0 +1,70 @@
+type Mutation {
+  saveRiggingData(craneData: InputCraneData, riggingIndex: Float): Boolean
+}
+
+input InputCraneData {
+  craneName: String
+  craneCode: String
+  craneModeName: String
+  excelSheetName: String
+  craneData: InputRiggingData
+}
+
+input InputRiggingData {
+  mainBoom: Float
+  mainAngle: Float
+  totalExtLength: Float
+  adapter1: Float
+  extBoom1: Float
+  extBoom2: Float
+  extBoom3: Float
+  extBoom4: Float
+  adapter2: Float
+  flyFixLuffing: Float
+  flyFixLuffingAngle: Float
+  distance1: Float
+  distance2: Float
+  craneDistance: Float
+  edgeDistance: InputEdgeDistance
+  centerToBuildingDistance: Float
+  centerToBlockDistance: Float
+  craneToBuildingDistance: Float
+  craneToBlockDistance: Float
+  totalDistance: Float
+  tableDistance: Float
+  height1: Float
+  height2: Float
+  totalHeight: Float
+  marginHeight: Float
+  workingArea: Float
+  tableWeight: Float
+  counterWeight: String
+  overRear: String
+  optional: String
+  safetyFactor: Float
+  craneLocation: String
+  workWeight: Float
+  workBuilding: InputWorkBuilding
+  block: InputBlock
+}
+
+input InputWorkBuilding {
+  horizontal: Float
+  vertical: Float!
+  height: Float!
+}
+
+input InputBlock {
+  vertical1: Float
+  horizontal1: Float
+  height1: Float
+  vertical2: Float
+  height2: Float
+}
+
+input InputEdgeDistance {
+  mainToBlock: Float
+  mainToBuilding: Float
+  flyFixLuffingToBlock: Float
+  flyFixLuffingToBuilding: Float
+}

@@ -1,5 +1,5 @@
 import partsArray from "./libs/partsArray";
-import getRiggingData from "./libs/riggingData";
+import startApp from "./libs/riggingData";
 
 const workValue = {
   // input value
@@ -13,11 +13,16 @@ const workValue = {
     height: 20, //높이
   },
   block: {
-    vertical1: 10, //거리
-    horizontal1: 0,
-    height1: 10, //높이
-    vertical2: 5, //여유거리
-    height2: 0,
+    // vertical1: 10, //거리
+    // horizontal1: 0,
+    // height1: 10, //높이
+    // vertical2: 5, //여유거리
+    // height2: 0,
+    vertical1: undefined, //거리
+    horizontal1: undefined,
+    height1: undefined, //높이
+    vertical2: undefined, //여유거리
+    height2: undefined,
   },
 };
 // const result = startApp(workValue);
@@ -28,11 +33,11 @@ const workValue = {
 
 // const partsInfoData = partsArray(craneData);
 
-const craneDataCal = getRiggingData(workValue);
+const craneDataCal = startApp(workValue);
 // console.log(craneDataCal);
 craneDataCal.forEach((data) => {
   console.log(data);
-})
+});
 // const partsInfoData = partsArray(craneDataCal[18]);
 // const partsInfoData = partsArray(craneDataCal[craneDataCal.length-1]);
 // const partsInfoData = partsArray(craneDataCal[46]);

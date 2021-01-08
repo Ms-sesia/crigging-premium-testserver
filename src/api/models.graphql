@@ -76,17 +76,14 @@ type OverWork {
 }
 
 type CraneData {
-  id: Int!
-  craneName: String!
-  craneCode: String!
-  craneModeName: String!
-  excelSheetName: String!
-  user: User!
-  riggingData: RiggingData!
+  craneName: String
+  craneCode: String
+  craneModeName: String
+  excelSheetName: String
+  craneData: RiggingData
 }
 
 type RiggingData {
-  id: Int!
   mainBoom: Float
   mainAngle: Float
   totalExtLength: Float
@@ -101,7 +98,7 @@ type RiggingData {
   distance1: Float
   distance2: Float
   craneDistance: Float
-  edgeDistance: EdgeDistance!
+  edgeDistance: EdgeDistance
   centerToBuildingDistance: Float
   centerToBlockDistance: Float
   craneToBuildingDistance: Float
@@ -120,19 +117,17 @@ type RiggingData {
   safetyFactor: Float
   craneLocation: String
   workWeight: Float
-  workBuilding: workBuilding!
-  block: Block!
+  workBuilding: workBuilding
+  block: Block
 }
 
 type workBuilding {
-  id: Int!
   horizontal: Float
   vertical: Float!
   height: Float!
 }
 
 type Block {
-  id: Int!
   vertical1: Float
   horizontal1: Float
   height1: Float
@@ -141,7 +136,6 @@ type Block {
 }
 
 type EdgeDistance {
-  id: Int!
   mainToBlock: Float
   mainToBuilding: Float
   flyFixLuffingToBlock: Float
