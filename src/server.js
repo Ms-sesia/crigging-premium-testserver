@@ -5,6 +5,8 @@ import schema from "./schema";
 import { uploadPost, uploadPostController } from "../libs/upload";
 import morgan from "morgan";
 import cors from "cors";
+import express from "express";
+import path from "path";
 
 const PORT = process.env.SERVER_PORT;
 
@@ -13,9 +15,15 @@ const server = new GraphQLServer({
   context: ({ request }) => ({ request, isAuthenticated }),
 });
 
-server.express.use(morgan("dev"));
+// server.express.use((req, res, next) => {
+//   console.log(req);
+//   next();
+// });
+
+// server.express.use(morgan("dev"));
 server.express.use(cors());
 server.express.use(authenticateJwt);
+server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneList")));
 server.express.post("/api/upload", uploadPost, uploadPostController);
 
 server.start({ port: PORT }, () => console.log(`Server is running on localhost:${PORT}`));

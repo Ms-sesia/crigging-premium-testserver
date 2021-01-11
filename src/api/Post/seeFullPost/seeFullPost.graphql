@@ -1,6 +1,6 @@
 type Query {
   # seeFullPost(postCategory: PostCategory, userId: Int, take: Int, cursor: Int orderBy: PostOrderByInput): [Post!]!
-  seeFullPost(postCategory: PostCategory, userId: Int, take: Int, cursor: Int orderBy: PostOrderByInput): postFeed!
+  seeFullPost(postCategory: PostCategory, take: Int, cursor: Int orderBy: PostOrderByInput): postFeed!
 }
 
 type postFeed {

@@ -8,7 +8,6 @@ export default {
       const { craneData } = args;
       const riggingParts = getCraneRiggingParts(craneData);
       const craneInfo = { craneData, ...riggingParts };
-      // CraneRigging(craneInfo);
       try {
         console.log("Image craete success.");
         return CraneRigging(craneInfo);

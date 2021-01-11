@@ -7,10 +7,11 @@ export default {
     purchaseHistoryRecord: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { date, cardCompany, price, installment, receipt } = args;
+      const { date, craneName, cardCompany, price, installment, receipt } = args;
       return await prisma.purchaseHistory.create({
         data: {
           date,
+          craneName,
           cardCompany,
           price,
           installment,

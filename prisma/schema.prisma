@@ -172,6 +172,7 @@ model PurchaseHistory {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   date        String
+  craneName   String?
   cardCompany String
   price       Float
   installment String
