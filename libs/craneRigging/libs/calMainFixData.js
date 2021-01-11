@@ -1,3 +1,4 @@
+      craneToBlockDistance : Number((spec.distance[index] - craneDistance - B1B2WDistance).toFixed(1)),
 const riggingData = (spec, index, workValue, heightOfHookCrane, craneDistance, params, testCode) => {
   const marginHeight = Number((params.h1 + params.h2 + heightOfHookCrane.craneHeight - (workValue.workBuilding.height + heightOfHookCrane.hookHeight)).toFixed(1));
   const B1B2WDistance = workValue.workBuilding.vertical + workValue.block.vertical1 + workValue.block.vertical2;

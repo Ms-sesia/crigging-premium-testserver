@@ -23,7 +23,7 @@ const partsArray = (craneData) => {
         break;
     }
   }
-  
+
   const partsNameArray = getPartsNameDataArray(partsDataTable[analysisIndex], craneData);
 
   return {
