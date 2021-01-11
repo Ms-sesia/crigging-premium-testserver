@@ -21,17 +21,17 @@ type Post {
   id: Int!
   createdAt: String
   updatedAt: String
-  title: String!
-  content: String!
+  title: String
+  content: String
   postCategory: PostCategory
   postAuthor: User!
   postAuthorId: Int!
-  files: [File!]!
-  likes: [Like!]!
+  files: [File]
+  likes: [Like]
   isLiked: Boolean
-  comments: [Comment!]!
-  likeCount: Int!
-  commentCount: Int!
+  comments: [Comment]
+  likeCount: Int
+  commentCount: Int
 }
 
 type File {

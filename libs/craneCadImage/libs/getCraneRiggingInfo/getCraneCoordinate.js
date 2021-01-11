@@ -102,7 +102,7 @@ const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, off
           ctx,
           {...markerRef.boomMarkerStart},
           {...markerRef.boomMarkerEnd},
-          craneData.mainBoom, 30, 500, 30, 0, 1);
+          craneData.mainBoom, 30, 500, 30, 30, 2);
         boomMarkerLine.calculateGuidelinePosition().applyOffset(500, 'up2').draw(); //500
         break;
       }
@@ -180,7 +180,7 @@ const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, off
           ctx,
           {...markerRef.fixMarkerStart},
           {...markerRef.fixMarkerEnd},
-          craneData.flyFixLuffing, 30, 500, 30, 0, 1);
+          craneData.flyFixLuffing, 30, 500, 30, 30, 2);
         jibMarkerLine.calculateGuidelinePosition().applyOffset(500, 'up2').draw(); //150
         break;
       }
@@ -201,7 +201,7 @@ const getCraneCoordinate = async (_canvasRef, modules, {craneData}, offSetX, off
           // {x: markerRef.end.x, y: markerRef.end.y},
           {...markerRef.fixMarkerStart},
           {...markerRef.fixMarkerEnd},
-          craneData.flyFixLuffing, 30, 500, 30, 0, 1);
+          craneData.flyFixLuffing, 30, 500, 30, 30, 2);
         jibMarkerLine.calculateGuidelinePosition().applyOffset(500, 'up2').draw();
         break;
       }

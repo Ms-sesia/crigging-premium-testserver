@@ -79,7 +79,7 @@ class BuildingModule{
     this.ctx.fillStyle = color;//'#d9dbdb';
     this.ctx.fill();
 
-    this.ctx.lineWidth = 1;
+    this.ctx.lineWidth = 2;
     this.ctx.strokeStyle = lineColor;
     this.ctx.stroke();
     this.ctx.setTransform(1,0,0,1,0,0);     // 컨텍스트 초기화
@@ -90,8 +90,8 @@ class BuildingModule{
     const spaceOffsetY = 20 + this.markOffset;
     const spaceOffsetX = 20 + this.markOffsetLR;
     const rowLineOffsetY = 30;
-    const rowLineOffsetX = this.width/6;
-    const columnLineOffsetY = this.height/6;
+    const rowLineOffsetX = this.width/2;
+    const columnLineOffsetY = this.height/2;
     const columnLineOffsetX = 30;
     // Text
     const textOffsetRight = 80 + this.markOffsetLR;
@@ -313,7 +313,7 @@ class BuildingModule{
       //Text
       this.ctx.font = `normal ${fontSize}pt Arial`;
       this.ctx.fillStyle = textColor;
-      this.ctx.fillText(`${(this.height/this.ppm).toFixed(1)}m`, heightRight.x,heightRight.y);
+      this.ctx.fillText(`${(this.height/this.ppm).toFixed(1)}m`, heightRight.x+ 40,heightRight.y);
     }
     if (markPosition.find(v => v === 'left')) {
       this.ctx.moveTo(gLeft9.x, gLeft9.y);

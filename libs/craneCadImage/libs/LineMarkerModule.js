@@ -9,6 +9,9 @@ class LineMarkerModule {
     fontSize = 30,
     valueOffset = 0,
     lineWidth = 2,
+    options = {
+      lineStyle: 'solid'
+    }
   ) {
     this.ctx = ctx;
     this.start = start;
@@ -19,6 +22,7 @@ class LineMarkerModule {
     this.fontSize = fontSize;
     this.valueOffset = valueOffset;
     this.rotateAngle =  Math.atan((start.y - end.y) / (end.x - start.x)); //라인의 각도
+    this.options = options;
     this.lineData = {
       center: {x: 0, y: 0},
       lines: [
@@ -75,25 +79,49 @@ class LineMarkerModule {
     const center = getCenter(sx, sy, ex, ey);
     const centerHalf1 = getCenter(sx, sy, center.x, center.y);
     const centerHalf2 = getCenter(center.x, center.y, ex, ey);
-
-    this.lineData = {
-      center,
-      lines: [
-        {
-          start: nextS1,
-          end: nextS2,
-        }, {
-          start: start,
-          end: centerHalf1
-        }, {
-          start: nextE1,
-          end: nextE2
-        }, {
-          start: end,
-          end: centerHalf2
+    switch(this.options.lineStyle){
+      case 'solid': {
+        this.lineData = {
+          center,
+          lines: [
+            {
+              start: nextS1,
+              end: nextS2,
+            }, {
+              start: start,
+              end: end,
+            }, {
+              start: nextE1,
+              end: nextE2
+            }
+          ],
         }
-      ],
+        break;
+      }
+      default : {
+        this.lineData = {
+          center,
+          lines: [
+            {
+              start: nextS1,
+              end: nextS2,
+            }, {
+              start: start,
+              end: centerHalf1
+            }, {
+              start: nextE1,
+              end: nextE2
+            }, {
+              start: end,
+              end: centerHalf2
+            }
+          ],
+        }
+      }
+      
     }
+    
+    
     return this;
 
   }
@@ -184,41 +212,20 @@ class LineMarkerModule {
       ctx.textAlign = "center";
       // ctx.textBaseline = "middle";
       ctx.lineWidth = this.lineWidth;
-      if (this.valueOffset) {
-        ctx.translate(lineData.center.x, lineData.center.y);
-        ctx.rotate(-this.rotateAngle);
-        ctx.textAline= "center";
-        ctx.fillText(`${length}m`, 0, this.valueOffset);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);     // 컨텍스트 초기화
-      }
-      else if (length > 4 ){
-        ctx.translate(lineData.center.x, lineData.center.y);
-        ctx.rotate(-this.rotateAngle);
-        ctx.textAline= "center";
-        ctx.fillText(`${length}m`,0,0);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);     // 컨텍스트 초기화
-      } else if (length >= 2){
-        ctx.font = `normal ${22}pt Arial`;
-        ctx.textAline= "center";
-        ctx.translate(lineData.center.x, lineData.center.y);
-        ctx.rotate(-this.rotateAngle);
-        ctx.fillText(`${length}m`,0,0);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);     // 컨텍스트 초기화
-      } else {
-        ctx.font = `normal ${19}pt Arial`;
-        ctx.translate(lineData.center.x, lineData.center.y);
-        ctx.rotate(-this.rotateAngle);
-        ctx.textAline= "center";
-        ctx.fillText(`${length}m`, 0, -50); //30정도 위에 표시 되기 위해서
-        ctx.setTransform(1, 0, 0, 1, 0, 0);     // 컨텍스트 초기화
-      }
+      
+      ctx.translate(lineData.center.x, lineData.center.y);
+      ctx.rotate(-this.rotateAngle);
+      ctx.textAline= "center";
+      ctx.fillText(`${length}m`, 0, -this.valueOffset);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);     // 컨텍스트 초기화
+      
 
       lineData.lines.forEach((line, index) => {
-        if(length < 4){ // 만약에 마커길이가 4보다 작으면 마커 팁이 안나오도록 설정
-          if(index === 1 || index === 3) { //index 1,3 마커의 안쪽 가로선 2개를 그리지 않는다
-            return;
-          }
-      }
+        // if(length < 4){ // 만약에 마커길이가 4보다 작으면 마커 팁이 안나오도록 설정
+        //   if(index === 1 || index === 3) { //index 1,3 마커의 안쪽 가로선 2개를 그리지 않는다
+        //     return;
+        //   }
+        // }
         ctx.moveTo(line.start.x, line.start.y);
         ctx.lineTo(line.end.x, line.end.y);
       })

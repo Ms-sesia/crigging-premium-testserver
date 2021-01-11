@@ -126,7 +126,7 @@ const getBuildingCoordinate = async (_canvasRef, {craneData}, markerRef,  offSet
     ctx,
     {...markerRef.center},
     {...markerRef.blockDistance2},
-    markerRef.blockDistance2.value, 15, 15, 30);
+    markerRef.blockDistance2.value, 15, 15, 30, -35);
   // let craneDistanceLine = new LineMarkerModule(
   //   ctx,
   //   {...markerRef.center},
@@ -137,15 +137,14 @@ const getBuildingCoordinate = async (_canvasRef, {craneData}, markerRef,  offSet
     ctx,
     {...markerRef.center},
     {...markerRef.totalDistance},
-    markerRef.totalDistance.value, 15, 15, 30);
+    markerRef.totalDistance.value, 15, 15, 30, -35);
 
   const blockToBuildingLine = new LineMarkerModule(
     ctx,
     {...markerRef.blockDistance1},
     {...markerRef.buildingDistance},
     markerRef.buildingDistance.value - (markerRef.blockDistance1.value + craneData.block.vertical2),
-    15, 15, 30,
-    36);
+    15, 15, 30, -35);
   // const buildingToCraneHeadValue = craneData.totalHeight - craneData.workBuilding.height;
 
   // craneDistanceLine.calculateGuidelinePosition().applyOffset(100, 'down');

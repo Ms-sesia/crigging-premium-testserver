@@ -48,13 +48,15 @@ class CraneModule {
     this.tipLengthBottom = markerOption.tipLengthBottom; //30  
     this.tipOffset = markerOption.tipOffset; //150
     this.markerPosition = markerOption.position;
+    this.textOffset = 30;
     // jibParts일때 포지션과 옵셋이 달라야 하기 때문에
     
     if(part.type === 'jibParts') {
       this.tipLengthTop =  30
       this.tipLengthBottom = 30  
-      this.tipOffset = 150
+      this.tipOffset = 100
       this.markerPosition = 'down';  
+      this.textOffset = -60;
     } 
   }
 
@@ -130,17 +132,13 @@ class CraneModule {
           end: nextS2,
         }, {
           start: start,
-          end: centerHalf1
+          end: end,
         }, {
           start: nextE1,
           end: nextE2
-        }, {
-          start: end,
-          end: centerHalf2
         }
-      ],
+      ]
     }
-
   }
 
   calculateAngleLine(x,y, offSetX, offSetY, radius, radianAngle, partName ) {
@@ -254,7 +252,7 @@ class CraneModule {
   async draw() {
     // calculate draw point
       this.calculateCoordination();
-      const imgSrc = __dirname + '/../../../data/images/' + this.imgSrc;
+      const imgSrc = __dirname + '/../images/' + this.imgSrc;
       await loadImage(imgSrc).then( (image) => {
         this.ctx.translate(this.x1 - this.rotateX1, this.y1 - this.rotateY1)  // 회전 위치 보정
         this.ctx.translate(this.offSetX + this.wX - this.x1, this.offSetY + this.wY - this.y1);   // 변환 위치로 이동
@@ -272,22 +270,23 @@ class CraneModule {
       this.ctx.fillStyle = 'black';
       this.ctx.textAlign = "center";
       this.ctx.font = `normal ${30}pt Arial`;
-      if(this.length > 4) {
-        this.ctx.translate(marker.center.x,marker.center.y);
-        this.ctx.rotate(-this.radianAngle);
-        this.ctx.fillText(`${this.length}m`,0,0);
-        this.ctx.setTransform(1,0,0,1,0,0);     // 컨텍스트 초기화
-      } else if (this.length >= 2){
+      if (this.length < 2.3){
         this.ctx.font = `normal ${19}pt Arial`;
         this.ctx.translate(marker.center.x,marker.center.y);
         this.ctx.rotate(-this.radianAngle);
-        this.ctx.fillText(`${this.length}m`,0,0);
+        this.ctx.fillText(`${this.length}m`,0, -this.textOffset);
+        this.ctx.setTransform(1,0,0,1,0,0);     // 컨텍스트 초기화  
+      } else if (this.length < 3.5) {
+        this.ctx.font = `normal ${25}pt Arial`;
+        this.ctx.translate(marker.center.x,marker.center.y);
+        this.ctx.rotate(-this.radianAngle);
+        this.ctx.fillText(`${this.length}m`,0,-this.textOffset);
         this.ctx.setTransform(1,0,0,1,0,0);     // 컨텍스트 초기화  
       } else {
-        this.ctx.font = `normal ${19}pt Arial`;
+        this.ctx.font = `normal ${30}pt Arial`;
         this.ctx.translate(marker.center.x,marker.center.y);
         this.ctx.rotate(-this.radianAngle);
-        this.ctx.fillText(`${this.length}m`,0,-50);
+        this.ctx.fillText(`${this.length}m`,0,-this.textOffset);
         this.ctx.setTransform(1,0,0,1,0,0);     // 컨텍스트 초기화  
       }
       
@@ -295,11 +294,11 @@ class CraneModule {
       
       this.ctx.beginPath();  
       marker.lines.forEach((line,index) => {
-        if(this.length < 4){ // 만약에 마커길이가 4보다 작으면 마커 팁이 안나오도록 설정
-            if(index === 1 || index === 3) { //index 1,3 마커의 안쪽 가로선 2개를 그리지 않는다
-              return;
-            }
-        }
+        // if(this.length < 4){ // 만약에 마커길이가 4보다 작으면 마커 팁이 안나오도록 설정
+        //     if(index === 1 || index === 3) { //index 1,3 마커의 안쪽 가로선 2개를 그리지 않는다
+        //       return;
+        //     }
+        // }
         this.ctx.moveTo(line.start.x,line.start.y);
         this.ctx.lineTo(line.end.x,line.end.y);
       })
