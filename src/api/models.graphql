@@ -3,18 +3,19 @@ type User {
   name: String!
   email: String!
   phoneNumber: String!
-  following: [User!]!
-  followingCount: Int!
-  followers: [User!]!
-  followersCount: Int!
-  posts: [Post!]!
-  postCount: Int!
-  likes: [Like!]!
-  comments: [Comment!]!
-  riggingRecords: [CraneData!]!
+  following: [User!]
+  followingCount: Int
+  followers: [User!]
+  followersCount: Int
+  avatar: String
+  posts: [Post!]
+  postCount: Int
+  likes: [Like!]
+  comments: [Comment!]
+  riggingRecords: [CraneData!]
   createdAt: String
   updatedAt: String
-  purchaseHistory: [PurchaseHistory!]!
+  purchaseHistory: [PurchaseHistory!]
 }
 
 type Post {
@@ -27,9 +28,9 @@ type Post {
   postAuthor: User!
   postAuthorId: Int!
   files: [File]
-  likes: [Like]
+  likes: [Like!]
   isLiked: Boolean
-  comments: [Comment]
+  comments: [Comment!]
   likeCount: Int
   commentCount: Int
 }
@@ -54,7 +55,7 @@ type Comment {
   id: Int!
   createdAt: String
   updatedAt: String
-  content: String!
+  content: String
   commentAuthor: User!
   post: Post!
 }
