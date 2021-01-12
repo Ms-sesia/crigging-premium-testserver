@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 const getExcelData = (loadDirName) => {
-  const cwd = path.join(__dirname, "../", "./excelData", `./${loadDirName}`);
+  const cwd = path.join(__dirname, "../../../", "./data/excelData/", `/${loadDirName}`);
   const filelist = fs.readdirSync(cwd);
   let excelInfo = new Array();
 

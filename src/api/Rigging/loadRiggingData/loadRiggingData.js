@@ -6,9 +6,11 @@ export default {
   Query: {
     loadRiggingData: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
-      const { user } = request;
-      const { userId } = args.userId;
-      const craneData = await prisma.craneData.findMany();
+      const craneData = await prisma.craneData.findMany({
+        take: 10,
+        orderBy: { createdAt: "desc" },
+      });
+
       try {
         return await Promise.all(
           craneData.map(async (craneInfo) => {
@@ -74,13 +76,10 @@ export default {
                 },
               },
             };
-            // return loadRiggingData;
           })
         );
-        // console.log(loadCraneData);
-        // return loadCraneData;
       } catch (e) {
-        throw new Error(e);
+        throw new Error("ERROR: 리깅기록을 불러오는데 실패하였습니다.");
       }
     },
   },

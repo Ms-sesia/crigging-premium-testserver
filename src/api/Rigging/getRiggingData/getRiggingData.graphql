@@ -5,6 +5,7 @@ type Mutation {
     workBuilding: workBuildingInput!
     workWeight: Float!
     block: BlockInput!
+    unlockedCraneNames: [String]
   ): [CraneData]!
 }
 

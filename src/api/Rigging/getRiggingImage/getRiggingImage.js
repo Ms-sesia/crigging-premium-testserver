@@ -9,11 +9,9 @@ export default {
       const riggingParts = getCraneRiggingParts(craneData);
       const craneInfo = { craneData, ...riggingParts };
       try {
-        console.log("Image craete success.");
         return CraneRigging(craneInfo);
       } catch (e) {
-        console.log("Image create fail.");
-        throw new Error(e);
+        throw new Error("ERROR: 이미지 생성에 실패하였습니다.");
       }
     },
   },
