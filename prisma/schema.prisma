@@ -15,7 +15,7 @@ model User {
   email           String            @unique
   phoneNumber     String            @unique
   loginSecretCode String?
-  avatar          String
+  avatar          String?
   posts           Post[]
   comments        Comment[]
   likes           Like[]
@@ -30,7 +30,6 @@ model Post {
   id           Int          @id @default(autoincrement())
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
-  title        String
   content      String?
   postCategory PostCategory
   comments     Comment[]
@@ -172,7 +171,7 @@ model PurchaseHistory {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   date        String
-  craneName   String?
+  craneName   String
   cardCompany String
   price       Float
   installment String

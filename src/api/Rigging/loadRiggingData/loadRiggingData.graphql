@@ -1,3 +1,3 @@
 type Query {
-  loadRiggingData(userId: Int): [CraneData]
+  loadRiggingData: [CraneData]
 }

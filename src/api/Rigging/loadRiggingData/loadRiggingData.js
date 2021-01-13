@@ -6,8 +6,10 @@ export default {
   Query: {
     loadRiggingData: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
+      const { user } = request;
       const craneData = await prisma.craneData.findMany({
         take: 10,
+        where: { userId: user.id },
         orderBy: { createdAt: "desc" },
       });
 

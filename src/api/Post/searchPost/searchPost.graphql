@@ -1,9 +1,3 @@
 type Query {
-  # searchPost(term: String): searchResult!
   searchPost(term: String): [Post!]!
 }
-
-# type searchResult {
-#   startWith: [Post!]!
-#   contain: [Post!]!
-# }

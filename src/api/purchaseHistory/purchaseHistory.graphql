@@ -1,3 +1,10 @@
 type Mutation {
-  purchaseHistoryRecord(date: String, cardCompany: String, price: Float, installment: String, receipt: String): PurchaseHistory
+  purchaseHistoryRecord(
+    date: String
+    cardCompany: String
+    craneName: String!
+    price: Float
+    installment: String
+    receipt: String
+  ): PurchaseHistory
 }

@@ -1,7 +1,6 @@
 type Mutation {
   editPost(
     id: Int!
-    title: String
     content: String
     postCategory: PostCategory
     actions: Actions!

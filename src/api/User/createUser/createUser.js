@@ -12,17 +12,19 @@ export default {
             OR: [{ email: { contains: email } }, { phoneNumber: { contains: phoneNumber } }],
           },
         });
-        if (user.length !== 0) throw new Error("이미 사용중인 이메일/핸드폰번호 입니다.");
+        if (user.length !== 0) throw new Error("ERROR: 이미 사용중인 이메일/핸드폰번호 입니다.");
 
-        return await prisma.user.create({
+        await prisma.user.create({
           data: {
             name,
             email,
             phoneNumber,
           },
         });
+        return true;
       } catch (e) {
         console.log(e);
+        throw new Error("ERROR: 유저를 생성하지 못하였습니다.");
       }
     },
   },

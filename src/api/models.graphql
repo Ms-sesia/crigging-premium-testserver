@@ -22,7 +22,6 @@ type Post {
   id: Int!
   createdAt: String
   updatedAt: String
-  title: String
   content: String
   postCategory: PostCategory
   postAuthor: User!
@@ -148,6 +147,7 @@ type PurchaseHistory {
   id: Int!
   date: String
   cardCompany: String
+  craneName: String!
   price: Float
   installment: String
   receipt: String

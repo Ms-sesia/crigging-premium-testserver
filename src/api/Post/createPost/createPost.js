@@ -9,7 +9,6 @@ export default {
       const { user } = request;
       return await prisma.post.create({
         data: {
-          title: args.title,
           content: args.content,
           postCategory: args.postCategory,
           files: args.files,

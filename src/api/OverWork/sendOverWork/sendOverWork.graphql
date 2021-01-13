@@ -1,5 +1,4 @@
 type Mutation {
-  # sendOverWork(email: String! title: String!, content: String!): Boolean
   sendOverWork(email: String! yearMonth: String! orderBy: OverworkOrderByInput): Boolean
 }
 
