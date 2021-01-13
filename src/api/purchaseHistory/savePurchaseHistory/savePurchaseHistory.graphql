@@ -1,5 +1,5 @@
 type Mutation {
-  purchaseHistoryRecord(
+  savePurchaseHistory(
     date: String
     cardCompany: String
     craneName: String!

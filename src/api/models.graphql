@@ -151,6 +151,7 @@ type PurchaseHistory {
   price: Float
   installment: String
   receipt: String
+  user: User
 }
 
 scalar Date
