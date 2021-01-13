@@ -78,6 +78,7 @@ type OverWork {
 
 type CraneData {
   craneName: String
+  paid: Boolean
   craneCode: String
   craneModeName: String
   excelSheetName: String

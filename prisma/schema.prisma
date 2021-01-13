@@ -15,7 +15,7 @@ model User {
   email           String            @unique
   phoneNumber     String            @unique
   loginSecretCode String?
-  avatar          String            @default(value: "")
+  avatar          String
   posts           Post[]
   comments        Comment[]
   likes           Like[]
