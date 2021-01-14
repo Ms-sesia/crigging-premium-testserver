@@ -11,7 +11,6 @@
 const { abbreviatePartName } = require("./utils");
 const { loadImage } = require("canvas");
 require("../../../src/env");
-
 class CraneModule {
   constructor(part, prevPartNextCoord, offSetX, offSetY, ctx, markerOption) {
     this.x1 = part.origin.x; //시작점
@@ -221,7 +220,7 @@ class CraneModule {
     // 센터 좌표 변환 데이터
     if (this.part.name === "BODY" && this.center) {
       const x = this.center.x;
-      const y = this.center.y;
+      const y = this.y1;
       const result = this.rotate(this.x1, this.y1, x, y, this.wX, this.wY, this.radianAngle);
       this.transCenter = { x: result.x + this.offSetX, y: result.y + this.offSetY };
     }
