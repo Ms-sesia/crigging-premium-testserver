@@ -25,6 +25,7 @@ server.express.use(cors());
 server.express.use(authenticateJwt);
 server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneList")));
 server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneCadImage")));
+server.express.use(express.static(path.join(__dirname, "../", "data/excelDataJPG")));
 server.express.post("/api/upload", uploadPost, uploadPostController);
 
 server.start({ port: PORT }, () => console.log(`Server is running on localhost:${PORT}`));
