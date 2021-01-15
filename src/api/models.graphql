@@ -16,6 +16,7 @@ type User {
   createdAt: String
   updatedAt: String
   purchaseHistory: [PurchaseHistory!]
+  overWorks: [OverWork]
 }
 
 type Post {
@@ -72,7 +73,7 @@ type OverWork {
   content: String
   amount: Int
   overWorkCategory: OverWorkCategory
-  overWorkAuthor: User!
+  overWorkAuthor: User
 }
 
 type CraneData {

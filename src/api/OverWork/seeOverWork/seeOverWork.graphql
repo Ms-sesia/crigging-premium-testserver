@@ -1,17 +1,3 @@
 type Query {
-  seeOverWork(overWorkCategory: OverWorkCategory!, take: Int, cursor: Int, orderBy: overWorkOrderByInput): overWorkFeed
-}
-
-type overWorkFeed {
-  overWork: [OverWork]
-  preCursor: Int
-}
-
-input overWorkOrderByInput {
-  createdAt: Sort
-}
-
-enum Sort {
-  asc
-  desc
+  seeOverWork(yearMonth: String, overWorkCategory: OverWorkCategory): [OverWork]
 }

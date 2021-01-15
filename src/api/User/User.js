@@ -43,5 +43,6 @@ export default {
         console.log(e);
       }
     },
+    overWorks: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).overWorks(),
   },
 };

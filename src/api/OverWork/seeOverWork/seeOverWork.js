@@ -7,27 +7,22 @@ export default {
     seeOverWork: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { overWorkCategory, take, cursor, orderBy } = args;
-      const overWork = cursor
-        ? await prisma.overWork.findMany({
-            take: take,
-            skip: 1,
-            cursor: { id: cursor },
-            where: {
-              AND: [{ overWorkCategory: overWorkCategory }, { overWorkAuthorId: user.id }],
-            },
-          })
-        : await prisma.overWork.findMany({
-            take: take,
-            where: {
-              AND: [{ overWorkCategory: overWorkCategory }, { overWorkAuthorId: user.id }],
-            },
-            // orderBy: orderBy,
-          });
-      console.log(overWork);
-      const preCursor = overWork[overWork.length - 1].id;
-      console.log(preCursor);
-      return { overWork, preCursor };
+      const { yearMonth, overWorkCategory } = args;
+      try {
+        const overWork = overWorkCategory
+          ? await prisma.overWork.findMany({
+              where: {
+                AND: [{ yearMonth: yearMonth }, { overWorkAuthorId: user.id }, { overWorkCategory: overWorkCategory }],
+              },
+            })
+          : await prisma.overWork.findMany({
+              where: { AND: [{ yearMonth: yearMonth }, { overWorkAuthorId: user.id }] },
+            });
+        return overWork;
+      } catch (e) {
+        console.log(e);
+        throw new Error("ERROR: 기성기록을 불러오는데 실패하였습니다.");
+      }
     },
   },
 };
