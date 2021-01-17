@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export default {
   User: {
-    following: (parent) => prisma.user.findUnique({ where: { id: parent.id } }).following(),
+    following: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).following(),
     followingCount: async (parent) => {
       try {
         const followersCount = await prisma.user.findMany({
@@ -16,7 +16,7 @@ export default {
         console.log(e);
       }
     },
-    followers: (parent) => prisma.user.findUnique({ where: { id: parent.id } }).followers(),
+    followers: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).followers(),
     followersCount: async (parent) => {
       try {
         const followingCount = await prisma.user.findMany({
@@ -30,7 +30,7 @@ export default {
     },
     likes: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).likes(),
     posts: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).posts(),
-    // riggingRecords: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).craneDataRecord(),
+    comments: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).comments(),
     purchaseHistory: async (parent) => await prisma.user.findUnique({ where: { id: parent.id } }).purchaseHistory(),
     postCount: async (parent) => {
       try {
