@@ -27,7 +27,7 @@ type Post {
   postCategory: PostCategory
   postAuthor: User!
   postAuthorId: Int!
-  files: [File]
+  files: [File!]
   likes: [Like!]
   isLiked: Boolean
   comments: [Comment!]

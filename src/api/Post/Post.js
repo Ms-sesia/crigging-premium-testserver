@@ -20,7 +20,7 @@ export default {
     commentCount: async (parent) => {
       try {
         const commentCount = await prisma.post.findMany({
-          where: { comments: { some: { id: parent.id } } },
+          where: { comments: { some: { postId: parent.id } } },
           select: { id: true },
         });
         return commentCount.length;
@@ -31,7 +31,7 @@ export default {
     likeCount: async (parent) => {
       try {
         const likeCount = await prisma.post.findMany({
-          where: { likes: { some: { id: parent.id } } },
+          where: { likes: { some: { postId: parent.id } } },
           select: { id: true },
         });
         return likeCount.length;
