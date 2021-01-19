@@ -12,7 +12,6 @@ export default {
         data: {
           content: args.content,
           postCategory: args.postCategory,
-          files: args.files,
           postAuthor: { connect: { id: user.id } },
         },
       });
@@ -26,8 +25,10 @@ export default {
           });
         });
       }
-
-      return post;
+      const result = await prisma.post.findUnique({
+        where: { id: post.id },
+      });
+      return result;
     },
   },
 };
