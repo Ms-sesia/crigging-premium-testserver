@@ -2,7 +2,7 @@ import { GraphQLServer } from "graphql-yoga";
 import { authenticateJwt } from "./passport";
 import { isAuthenticated } from "./middlewares";
 import schema from "./schema";
-import { uploadPost, uploadPostController } from "../libs/upload";
+import { uploadController, uploadSet, upload } from "../libs/fileUpload/upload";
 import morgan from "morgan";
 import cors from "cors";
 import express from "express";
@@ -33,7 +33,8 @@ server.express.use(express.static(path.join(__dirname, "../", "data/images", "Up
 // server.express.get("/upload", (req, res) => {
 //   res.render("upload");
 // });
-// server.express.post("/upload", uploadPost, uploadPostController);
-server.express.post("/api/upload", uploadPost, uploadPostController);
+// server.express.post("/upload", uploadSet("avatar"), upload, uploadController);
+server.express.post("/api/postUpload", uploadSet("post"), upload, uploadController);
+server.express.post("/api/avatarUpload", uploadSet("avatar"), upload, uploadController);
 
 server.start({ port: PORT }, () => console.log(`Server is running on localhost:${PORT}`));

@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { sendMail } from "../../../utils";
-import { sendBillingMail } from "../../../utils/sendEmail";
+import sendBillingMail from "../../../../libs/utils/sendEmail/sendBillingMail";
 
 const prisma = new PrismaClient();
 
@@ -47,29 +46,17 @@ export default {
         });
 
         const workList = { early, night, allnight, weekend, overtime };
-        // console.log(workList);
         await sendBillingMail({
+          yearMonth: yearMonth,
           workData: workList,
           worker: user.name,
-          // from: user.email,
           to: email,
         });
         return true;
       } catch (e) {
+        console.log("mail send error.", e);
         throw new Error(e);
-        return false;
       }
-      // const from = user.email;
-      // const { email: to, title, content } = args;
-      // try {
-      //   // const result = await sendMail(user.email, title, content).catch();
-      //   const result = await sendMail(from, to, title, content).catch();
-      //   console.log(result);
-      //   return true;
-      // } catch (e) {
-      //   console.log("메일 전송에 실패하였습니다", e);
-      //   return false;
-      // }
     },
   },
 };

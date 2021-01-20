@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { generateToken } from "../../../utils";
+import { generateToken } from "../../../../libs/utils";
 
 const prisma = new PrismaClient();
 

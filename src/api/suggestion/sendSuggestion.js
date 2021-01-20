@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import { sendMail } from "../../utils";
-
-const prisma = new PrismaClient();
+import { sendMail } from "../../../libs/utils";
 
 export default {
   Mutation: {
@@ -9,10 +6,8 @@ export default {
       isAuthenticated(request);
       const { user } = request;
       const { title, content } = args;
-
       try {
-        const result = await sendMail(user.email, title, content).catch();
-        // console.log(result);
+        await sendMail({ to: user.email, subject: title, html: content }).catch();
         return true;
       } catch (e) {
         console.log("메일 전송에 실패하였습니다", e);
