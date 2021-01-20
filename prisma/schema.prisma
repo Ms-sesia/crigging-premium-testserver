@@ -16,6 +16,7 @@ model User {
   phoneNumber     String            @unique
   loginSecretCode String?
   avatar          String?
+  bio             String?
   posts           Post[]
   comments        Comment[]
   likes           Like[]
@@ -114,6 +115,7 @@ model RiggingData {
   workBuildingId           Int
   block                    Block        @relation(fields: [blockId], references: [id])
   blockId                  Int
+  CraneData                CraneData[]
 }
 
 model EdgeDistance {
@@ -122,6 +124,7 @@ model EdgeDistance {
   mainToBuilding          Float
   flyFixLuffingToBlock    Float
   flyFixLuffingToBuilding Float
+  RiggingData             RiggingData[]
 }
 
 model WorkBuilding {
@@ -129,6 +132,7 @@ model WorkBuilding {
   horizontal  Float
   vertical    Float
   height      Float
+  RiggingData RiggingData[]
 }
 
 model Block {
@@ -138,6 +142,7 @@ model Block {
   height1     Float
   vertical2   Float
   height2     Float
+  RiggingData RiggingData[]
 }
 
 model OverWork {

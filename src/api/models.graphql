@@ -8,6 +8,7 @@ type User {
   followers: [User!]
   followersCount: Int
   avatar: String
+  bio: String
   posts: [Post!]
   postCount: Int
   likes: [Like!]

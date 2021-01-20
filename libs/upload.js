@@ -4,7 +4,7 @@ import "../src/env";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, `${path.join(__dirname, "../", "Uploads")}`);
+    cb(null, `${path.join(__dirname, "../", "data/Uploads/postUploads")}`);
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);

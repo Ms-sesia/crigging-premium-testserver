@@ -27,6 +27,13 @@ server.express.use(express.static(path.join(__dirname, "../", "data/images", "cr
 server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneCadImage")));
 server.express.use(express.static(path.join(__dirname, "../", "data/excelDataJPG")));
 server.express.use(express.static(path.join(__dirname, "../", "data/images", "Uploads")));
+// server.express.set("views", "./src/views_file");
+// server.express.set("view engine", "pug");
+
+// server.express.get("/upload", (req, res) => {
+//   res.render("upload");
+// });
+// server.express.post("/upload", uploadPost, uploadPostController);
 server.express.post("/api/upload", uploadPost, uploadPostController);
 
 server.start({ port: PORT }, () => console.log(`Server is running on localhost:${PORT}`));
