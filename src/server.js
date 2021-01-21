@@ -26,7 +26,8 @@ server.express.use(authenticateJwt);
 server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneList")));
 server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneCadImage")));
 server.express.use(express.static(path.join(__dirname, "../", "data/excelDataJPG")));
-server.express.use(express.static(path.join(__dirname, "../", "data/images", "Uploads")));
+server.express.use(express.static(path.join(__dirname, "../", "data/Uploads", "avatarUploads")));
+server.express.use(express.static(path.join(__dirname, "../", "data/Uploads", "postUploads")));
 // server.express.set("views", "./src/views_file");
 // server.express.set("view engine", "pug");
 

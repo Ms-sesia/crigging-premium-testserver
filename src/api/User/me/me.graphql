@@ -1,3 +1,8 @@
-type Query{
-  me: User!
+type Query {
+  me: MePost!
+}
+
+type MePost {
+  user: User!
+  posts: [Post!]!
 }
