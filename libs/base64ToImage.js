@@ -6,7 +6,7 @@ export default (base64Str, path, { fileName, type }) => {
 
   const imageBuffer = Buffer.from(matches[2], "base64");
   const abs = path + fileName + "." + type;
-
+  
   fs.writeFile(abs, imageBuffer, "base64", function (err) {
     if (err) console.log("File image write error", err);
   });

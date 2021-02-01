@@ -10,7 +10,7 @@ class BuildingModule{
     this.centerX = centerX;
     this.distance = ppm * distance;
     this.markPosition = markPosition;
-    this.color = 'grey';
+    this.color = 'white';
     this.markOffset = markOffset;
     this.markOffsetLR = markOffsetLR;
     this.fontSize = fontSize;
@@ -19,12 +19,12 @@ class BuildingModule{
   initialSetup(type) {
     switch(type) {
       case 'Building': {
-        this.color = '#d9dbdb';
+        // this.color = '#d9dbdb';
         this.lineColor = 'black';
         break;
       }
       case 'Block': {
-        this.color = '#e9ebdb';
+        // this.color = '#e9ebdb';
         this.lineColor = 'black';
         break;
       }

@@ -6,8 +6,20 @@ const drawImage = require('./libs/drawImage');
 const saveImage = require('./libs/saveImage');
 const ppm = require('./libs/pixelPerMeter'); 
 
-async function CraneRigging(craneInfo) {
+// 배경을 흰색으로
+function backgroundColor(ctx, color, canvasWidth, canvasHeight) {
+  return new Promise(async (resolve, reject) => {
+    ctx.fillStyle = 'white';
+    
+    await ctx.fillRect(0,0,canvasWidth, canvasHeight);
+    await ctx.stroke();
+    await ctx.stroke();
+    resolve();
+  })
+}
 
+async function CraneRigging(craneInfo) {
+  
   // canvas의 크기와 옵셋 설정
   const craneData = craneInfo.craneData.craneData;
   const partsData = craneInfo.partsData;
@@ -33,9 +45,15 @@ async function CraneRigging(craneInfo) {
   const canvas = createCanvas(canvasWidth, canvasHeight);
 
   const canvasRef = canvas;
-  // let markerRef = {};
+  // 배경을 흰색으로 초기화
+  await backgroundColor(canvasRef.getContext('2d'), 'white', canvasWidth, canvasHeight);  
 
   const { modParts, buildParts } = await getCraneRiggingInfo(craneInfo, canvasRef, offSetX, offSetY, pixelPerMeter);
+  
+  
+  // const ctx = canvas.getContext('2d');
+  
+
   await drawImage(modParts, buildParts);
   // await saveImage(canvasRef);
 
