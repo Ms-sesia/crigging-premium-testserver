@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import * as aligo from "../aligo";
-import "../../src/env";
 import nodemailer from "nodemailer";
 
 export const generateSecretCode = () => {

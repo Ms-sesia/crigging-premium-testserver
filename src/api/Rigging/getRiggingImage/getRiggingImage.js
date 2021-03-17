@@ -1,7 +1,7 @@
-import CraneRigging from "../../../../libs/craneCadImage";
-import { getCraneRiggingParts } from "../../../../libs/craneRigging";
+import CraneRigging from "../../../libs/craneCadImage";
+import { getCraneRiggingParts } from "../../../libs/craneRigging";
 import path from "path";
-import decodeBase64Image from "../../../../libs/base64ToImage";
+import decodeBase64Image from "../../../libs/base64ToImage";
 
 export default {
   Mutation: {

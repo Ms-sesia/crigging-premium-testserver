@@ -1,6 +1,5 @@
 node_modules/
 .env
-
+build/
 prisma/
 data/
-src/views_file/

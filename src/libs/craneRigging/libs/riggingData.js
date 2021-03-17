@@ -25,7 +25,7 @@ const getRiggingData = (workValue, unlockedCraneNames) => {
   if (!workValue.block.height1) workValue.block.height1 = 0;
   if (!workValue.block.vertical2) workValue.block.vertical2 = 0;
   if (!workValue.block.height2) workValue.block.height2 = 0;
-
+  console.log(unlockedCraneNames);
   for (let i = 0; i < specTableInfo.length; i++) {
     let preCraneCode = "";
     const excelInfo = specTableInfo[i];
@@ -44,6 +44,10 @@ const getRiggingData = (workValue, unlockedCraneNames) => {
         const riggingData = getCraneData(excelInfo.data[sheetName], row, column, modeName, workValue, craneDistance);
         // if (craneName === "L_1500_84m_8.1") console.log(craneCode, riggingData);
         if (riggingData) {
+          console.log("craneName:", craneName, "\tinclueds Crane:", unlockedCraneNames.includes(craneName));
+          // unlockedCraneNames.includes(craneName)
+          //   ? console.log("craneName true", craneName)
+          //   : console.log("craneName false", craneName);
           craneInfo.push({
             craneName: craneName,
             craneCode: craneCode,

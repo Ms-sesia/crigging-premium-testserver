@@ -10,7 +10,8 @@
 
 const { abbreviatePartName } = require("./utils");
 const { loadImage } = require("canvas");
-require("../../../src/env");
+// require("../../../../src/env");
+
 class CraneModule {
   constructor(part, prevPartNextCoord, offSetX, offSetY, ctx, markerOption) {
     this.x1 = part.origin.x; //시작점

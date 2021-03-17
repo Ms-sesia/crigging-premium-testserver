@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { use } from "passport";
 
 const prisma = new PrismaClient();
 

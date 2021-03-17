@@ -1,41 +1,63 @@
-import { GraphQLServer } from "graphql-yoga";
-import { authenticateJwt } from "./passport";
-import { isAuthenticated } from "./middlewares";
+import { ApolloServer } from "apollo-server-express";
+import expressPlayground from "graphql-playground-middleware-express";
 import schema from "./schema";
-import { uploadController, uploadSet, upload } from "../libs/fileUpload/upload";
-import morgan from "morgan";
-import cors from "cors";
-import express from "express";
+import { isAuthenticated } from "./middlewares";
 import path from "path";
+import cors from "cors";
+import helmet from "helmet";
+import csp from "helmet-csp";
+import morgan from "morgan";
+import express from "express";
+import { authenticateJwt } from "./passport";
+import { uploadController, uploadSet, upload } from "./libs/fileUpload/upload";
+import dotenv from "dotenv";
+dotenv.config();
 
 const PORT = process.env.SERVER_PORT;
 
-const server = new GraphQLServer({
+const server = new ApolloServer({
   schema,
-  context: ({ request }) => ({ request, isAuthenticated }),
+  context: ({ req: request }) => ({ request, isAuthenticated }),
 });
 
-// server.express.use((req, res, next) => {
-//   console.log(req);
-//   next();
-// });
+const app = express();
 
-// server.express.use(morgan("dev"));
-server.express.use(cors());
-server.express.use(authenticateJwt);
-server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneList")));
-server.express.use(express.static(path.join(__dirname, "../", "data/images", "craneCadImage")));
-server.express.use(express.static(path.join(__dirname, "../", "data/excelDataJPG")));
-server.express.use(express.static(path.join(__dirname, "../", "data/Uploads", "avatarUploads")));
-server.express.use(express.static(path.join(__dirname, "../", "data/Uploads", "postUploads")));
-// server.express.set("views", "./src/views_file");
-// server.express.set("view engine", "pug");
+app.use(cors());
+app.use(helmet());
+// app.use(morgan("dev"));
+app.use(
+  csp({
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrcElem: ["'self'", "fonts.googleapis.com", "cdn.jsdelivr.net", "'unsafe-inline'"],
+      imgSrc: ["'self'", "cdn.jsdelivr.net"],
+      scriptSrcElem: ["'self'", "cdn.jsdelivr.net", "'unsafe-inline'"],
+      fontSrc: ["'self'", "'unsafe-inline'", "fonts.gstatic.com"],
+    },
+  })
+);
+app.use(authenticateJwt);
+app.use(express.static(path.join(__dirname, "../", "data/images", "craneList")));
+app.use(express.static(path.join(__dirname, "../", "data/images", "craneCadImage")));
+app.use(express.static(path.join(__dirname, "../", "data/excelDataJPG")));
+app.use(express.static(path.join(__dirname, "../", "data/Uploads", "avatarUploads")));
+app.use(express.static(path.join(__dirname, "../", "data/Uploads", "postUploads")));
 
-// server.express.get("/upload", (req, res) => {
-//   res.render("upload");
-// });
-// server.express.post("/upload", uploadSet("avatar"), upload, uploadController);
-server.express.post("/api/postUpload", uploadSet("post"), upload, uploadController);
-server.express.post("/api/avatarUpload", uploadSet("avatar"), upload, uploadController);
+app.get("/", expressPlayground({ endpoint: "/graphql" }));
 
-server.start({ port: PORT }, () => console.log(`Server is running on localhost:${PORT}`));
+server.applyMiddleware({ app });
+
+app.set("views", "./src/views_file");
+app.set("view engine", "pug");
+
+app.get("/api/upload", (req, res) => {
+  res.render("upload");
+});
+
+app.post("/api/postUpload", uploadSet("post"), upload, uploadController);
+app.post("/api/avatarUpload", uploadSet("avatar"), upload, uploadController);
+
+app.listen(PORT, () => {
+  console.log(`Server ready at http://localhost:${PORT}`);
+});

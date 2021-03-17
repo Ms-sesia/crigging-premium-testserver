@@ -1,4 +1,4 @@
-import { sendMail } from "../../../libs/utils";
+import { sendMail } from "../../libs/utils";
 
 export default {
   Mutation: {

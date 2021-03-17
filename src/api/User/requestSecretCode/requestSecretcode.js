@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { generateSecretCode, sendSecretSMS } from "../../../../libs/utils";
+import { generateSecretCode, sendSecretSMS } from "../../../libs/utils";
 
 const prisma = new PrismaClient();
 

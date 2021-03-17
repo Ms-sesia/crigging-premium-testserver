@@ -1,5 +1,4 @@
 import multer from "multer";
-import "../../src/env";
 import setStorage from "./setStorage";
 
 export const uploadSet = (subject) => {

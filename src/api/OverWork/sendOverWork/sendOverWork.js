@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import sendBillingMail from "../../../../libs/utils/sendEmail/sendBillingMail";
+import sendBillingMail from "../../../libs/utils/sendEmail/sendBillingMail";
 
 const prisma = new PrismaClient();
 

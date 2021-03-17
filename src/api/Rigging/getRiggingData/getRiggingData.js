@@ -1,4 +1,4 @@
-import getRiggingData from "../../../../libs/craneRigging/libs/riggingData";
+import getRiggingData from "../../../libs/craneRigging/libs/riggingData";
 
 export default {
   Mutation: {
@@ -13,6 +13,7 @@ export default {
         block,
       };
       try {
+        console.log(riggingInputData, paidCraneNames);
         return getRiggingData(riggingInputData, paidCraneNames);
       } catch (e) {
         throw new Error("ERROR: riggingData의 return이 잘못되었습니다.");
