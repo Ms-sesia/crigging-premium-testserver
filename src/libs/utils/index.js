@@ -19,7 +19,7 @@ export const sendSecretSMS = async (phoneNumber, secretCode) => {
     body: {
       sender: "031-5186-6033",
       receiver: phoneNumber,
-      msg: `안녕하세요 플랫큐브입니다 고객님의 비밀 번호는 ${secretCode} 입니다 `,
+      msg: `안녕하세요 플랫큐브입니다 고객님의 인증 번호는 ${secretCode} 입니다 `,
     },
   };
   try {

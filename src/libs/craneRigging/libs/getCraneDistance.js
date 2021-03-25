@@ -1,5 +1,5 @@
 /*
- ** 각 위치별로 craneCenter To Boom의 realDistance를 더한 값으로 계산한다.
+ ** 각 위치별로 craneCenter To Boom의 realDistance(실제 거리)를 더한 값으로 계산한다.
  ** 현재는 이미지가 rear만 가능하기에 rear에만 realDistance를 더하였다.
  ** 추후 이미지들이 추가 되면 지금의 frontDistance와 trigger에 realDistance를 구하여 더해주면 된다.
  */

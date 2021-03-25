@@ -4,7 +4,7 @@
   "description": "crigging premium server",
   "main": "index.js",
   "scripts": {
-    "arthtest": "babel-node ./libs/craneRigging/test.js",
+    "rigging": "babel-node ./src/libs/craneRigging/test.js",
     "start": "nodemon --exec babel-node ./src/server.js",
     "prisma": "npx prisma migrate up --experimental && npx prisma generate",
     "migrate": "npx prisma migrate save --name init --experimental",
@@ -51,6 +51,7 @@
     "path": "^0.12.7",
     "pug": "^3.0.2",
     "request": "^2.88.2",
+    "sharp": "^0.27.2",
     "xlsx": "^0.16.9"
   }
 }

@@ -8,7 +8,17 @@ module.exports = {
       exec_mode: "cluster",
       watch: true,
       // watch_delay: 500,
-      ignore_watch: ["node_modules", "data", "prisma", ".git", ".gitignore", "build"],
+      ignore_watch: [
+        "node_modules",
+        "data",
+        "prisma",
+        ".git",
+        ".gitignore",
+        "build",
+        "src",
+        "package-lock.json",
+        "package.json",
+      ],
       env: {
         NODE_ENV: "development",
       },

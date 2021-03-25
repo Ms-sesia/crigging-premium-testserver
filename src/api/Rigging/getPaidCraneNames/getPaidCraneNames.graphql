@@ -1,3 +1,10 @@
 type Query {
-  getPaidCraneNames: [String]
+  getPaidCraneNames: CraneListInfo
+}
+
+type CraneListInfo {
+  paidCraneList: [String]
+  paidCraneListCount: Int
+  notPaidCraneList: [String]
+  allCraneListCount: Int
 }
