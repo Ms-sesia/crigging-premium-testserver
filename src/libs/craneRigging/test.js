@@ -5,12 +5,12 @@ const workValue = {
   // input value
   safetyFactor: 85,
   craneLocation: "back", // front, back, side
-  workWeight: 10,
+  workWeight: 15.5,
   workBuilding: {
     // 크레인이 건물에 붙는 면을 가로.
-    vertical: 10, //거리
+    vertical: 20.73, //거리
     horizontal: 0,
-    height: 10, //높이
+    height: 45, //높이
   },
   block: {
     // vertical1: 10, //거리
@@ -18,11 +18,11 @@ const workValue = {
     // height1: 10, //높이
     // vertical2: 5, //여유거리
     // height2: 0,
-    vertical1: undefined, //거리
-    horizontal1: undefined,
-    height1: undefined, //높이
-    vertical2: undefined, //여유거리
-    height2: undefined,
+    // vertical1: 0, //거리
+    // horizontal1: 0,
+    // height1: 0, //높이
+    // vertical2: 0, //여유거리
+    // height2: 0,
   },
 };
 
@@ -50,7 +50,7 @@ const unlockedCraneName = [
   "L_1450_8.1",
   "L_1500_50m_8.1",
   "L_1500_84m_8.1",
-  "L_1750_9.1"
+  "L_1750_9.1",
 ];
 // const result = startApp(workValue);
 // console.log(result);
@@ -61,12 +61,13 @@ const unlockedCraneName = [
 // const partsInfoData = partsArray(craneData);
 
 const craneDataCal = startApp(workValue, unlockedCraneName);
+console.log("결과물", craneDataCal);
 // console.log(craneDataCal);
 // craneDataCal.forEach((data) => {
 //   console.log(data.craneName);
-//   console.log(data.craneCode);
+// console.log(data.craneCode);
 // });
-console.log(craneDataCal);
+// console.log(craneDataCal);
 // const partsInfoData = partsArray(craneDataCal[18]);
 // const partsInfoData = partsArray(craneDataCal[craneDataCal.length-1]);
 // const partsInfoData = partsArray(craneDataCal[46]);

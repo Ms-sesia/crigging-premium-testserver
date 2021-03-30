@@ -220,24 +220,25 @@ const findLuffingSpecTable = (
               // 1] h1 + 크레인높이 > 작업높이
               if (params.h1 + heightOfHookCrane.craneHeight > workValue.workBuilding.height) {
                 const checkCode = 4;
-                // console.log(checkCode);
-                const tmpBlockDist = workValue.block.height1
-                  ? (workValue.block.height1 - heightOfHookCrane.craneHeight) /
-                    Math.tan((spec.mainAngle * Math.PI) / 180)
-                  : 0;
+                params.mainToBlockEdgeDistance = 0;
+                if (workValue.block.height1) {
+                  const tmpBlockDist =
+                    (workValue.block.height1 - heightOfHookCrane.craneHeight) /
+                    Math.tan((spec.mainAngle * Math.PI) / 180);
+                  params.mainToBlockEdgeDistance =
+                    spec.distance[i] - (workValue.workBuilding.vertical + workValue.block.vertical1) - tmpBlockDist;
+                }
                 const tmpBuildingDist =
                   (workValue.workBuilding.height - heightOfHookCrane.craneHeight) /
                   Math.tan((spec.mainAngle * Math.PI) / 180);
-                params.mainToBlockEdgeDistance =
-                  spec.distance[i] - (workValue.workBuilding.vertical + workValue.block.vertical1) - tmpBlockDist;
                 params.mainToBuildingEdgeDistance =
                   spec.distance[i] - workValue.workBuilding.vertical - tmpBuildingDist;
                 // EdgeDistance길이 비교. 더 짧은 길이로 정리.
-                if (params.mainToBlockEdgeDistance > params.mainToBuildingEdgeDistance) {
-                  if (params.mainToBuildingEdgeDistance >= 3)
+                if (params.mainToBlockEdgeDistance < params.mainToBuildingEdgeDistance) {
+                  if (params.mainToBlockEdgeDistance >= 3 || params.mainToBlockEdgeDistance === 0)
                     return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
                 } else {
-                  if (params.mainToBlockEdgeDistance >= 3)
+                  if (params.mainToBuildingEdgeDistance >= 3)
                     return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
                 }
               }
@@ -307,7 +308,7 @@ const findLuffingSpecTable = (
                   params.flyFixLuffingToBuildingEdgeDistance =
                     params.d2 - workValue.workBuilding.vertical - tmpBuildingDist;
                   if (params.flyFixLuffingToBlockEdgeDistance < params.flyFixLuffingToBuildingEdgeDistance) {
-                    if (params.flyFixLuffingToBlockEdgeDistance >= 3)
+                    if (params.flyFixLuffingToBlockEdgeDistance >= 3 || params.flyFixLuffingToBlockEdgeDistance === 0)
                       return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
                   } else {
                     if (params.flyFixLuffingToBuildingEdgeDistance >= 3)
@@ -344,7 +345,7 @@ const findLuffingSpecTable = (
                   params.flyFixLuffingToBuildingEdgeDistance =
                     params.d2 - workValue.workBuilding.vertical - tmpBuildingDist;
                   if (params.mainToBlockEdgeDistance < params.flyFixLuffingToBuildingEdgeDistance) {
-                    if (params.mainToBlockEdgeDistance >= 3)
+                    if (params.mainToBlockEdgeDistance >= 3 || params.mainToBlockEdgeDistance === 0)
                       return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
                   } else {
                     if (params.flyFixLuffingToBuildingEdgeDistance >= 3)
@@ -355,7 +356,7 @@ const findLuffingSpecTable = (
               // 3] h1 + 크레인높이 > 작업높이
               else if (params.h1 + heightOfHookCrane.craneHeight > workValue.workBuilding.height) {
                 const checkCode = 8;
-                // console.log(checkCode);
+                console.log("첫 번째 checkCode", checkCode);
                 const tmpBlockDist = workValue.block.height1
                   ? (workValue.block.height1 - heightOfHookCrane.craneHeight) /
                     Math.tan((spec.mainAngle * Math.PI) / 180)
@@ -367,8 +368,9 @@ const findLuffingSpecTable = (
                   spec.distance[i] - workValue.workBuilding.vertical - workValue.block.vertical1 - tmpBlockDist;
                 params.mainToBuildingEdgeDistance =
                   spec.distance[i] - workValue.workBuilding.vertical - tmpBuildingDist;
+                console.log(params.mainToBlockEdgeDistance, params.mainToBuildingEdgeDistance);
                 if (params.mainToBlockEdgeDistance < params.mainToBuildingEdgeDistance) {
-                  if (params.mainToBlockEdgeDistance >= 3)
+                  if (params.mainToBlockEdgeDistance >= 3 || params.mainToBlockEdgeDistance === 0)
                     return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
                 } else {
                   if (params.mainToBuildingEdgeDistance >= 3)

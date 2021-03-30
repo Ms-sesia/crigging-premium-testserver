@@ -95,6 +95,7 @@ const findMainFixSpecTable = (
   for (let i = 0; i < spec.weight.length; i++) {
     const safetyFactor = Number(((workValue.workWeight / spec.weight[i]) * 85).toFixed(1));
     if (safetyFactor < workValue.safetyFactor) {
+      // 크레인 길이가 크레인 센터에서 장애물까지의 길이보다 길면 계산 x => b1b2wdist + cranedist < totaldist 조건으로 상쇄
       if (spec.weight[i] >= workValue.workWeight && B1B2WDistance + craneDistance < spec.distance[i]) {
         // weight data가 있어야하고 작업무게 이상이어야 한다.
         // fix, main 모드에서 메인붐 각도는 60~85도
@@ -112,14 +113,8 @@ const findMainFixSpecTable = (
           params.totalDist = params.d1 + params.d2;
           // tableDistance-d2 길이(d1)로 계산한 mainAngle
           const calMainAngle = Number((Math.acos(params.d1 / MBoom) * (180 / Math.PI)).toFixed(1));
-
           // mainAngle과 tableDistance-d2 길이(d1)로 계산한 mainAngle비교
           if (calMainAngle === params.mainAngle) {
-            // 크레인 길이가 크레인 센터에서 장애물까지의 길이보다 길면 계산 x => b1b2wdist + canedist < totaldist 조건으로 상쇄
-            // 나중에 resolver에서 mutation의 args단에서 처리
-            if (!workValue.block.height1) workValue.block.height1 = 0;
-            if (!workValue.block.vertical1) workValue.block.vertical1 = 0;
-
             // 장애물이 있을 때 크레인으로부터의 각도
             let blockAngle = 0;
             if (workValue.block.height1)

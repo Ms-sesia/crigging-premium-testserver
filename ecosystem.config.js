@@ -26,6 +26,12 @@ module.exports = {
         NODE_ENV: "production",
       },
     },
+    {
+      name: "criggingPre-prismaDB",
+      script: "npm run studio",
+      exec_mode: "fork",
+      watch: false,
+    },
   ],
   // deploy : {
   //   production : {

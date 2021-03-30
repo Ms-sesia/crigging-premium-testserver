@@ -31,7 +31,7 @@ const getRiggingData = (workValue, unlockedCraneNames) => {
     const excelInfo = specTableInfo[i];
     const craneName = excelInfo.fileName;
     const craneDistance = getCraneDistance(craneName);
-    // if (craneName === "L_1100_4.2") {// 테스트용 if 1
+    if (craneName === "L_1500_84m_8.1") {// 테스트용 if 1
     for (let j = 0; j < specTableInfo[i].allSheetName.length; j++) {
       // 엑셀 파일의 sheet
       // if(sheetName === 'T7Y_202t_TAB1780131'){ // 테스트용 if 2
@@ -40,9 +40,11 @@ const getRiggingData = (workValue, unlockedCraneNames) => {
       const craneCode = sheetName.split("_")[0]; // TN, TY3, TNZF, TYVENZF 등 모드별 이름
       const modeName = modeSelect(sheetName); // main, fix, luffing 구분
       if (preCraneCode !== craneCode) {
+        // console.log(craneName);
         // 작업값을 만족하는 craneData 계산
         const riggingData = getCraneData(excelInfo.data[sheetName], row, column, modeName, workValue, craneDistance);
-        // if (craneName === "L_1100_4.2") console.log(craneCode, modeName, riggingData);
+        // if (craneName === "L_1100_4.2")
+        // console.log(craneCode);
         if (riggingData) {
           // console.log("craneName:", craneName, "\tinclueds Crane:", unlockedCraneNames.includes(craneName));
           craneInfo.push({
@@ -62,7 +64,7 @@ const getRiggingData = (workValue, unlockedCraneNames) => {
       }
       // }// 테스트용 if 2
     }
-    // }// 테스트용 if 1
+    }// 테스트용 if 1
   }
   if (craneInfo.length) {
     craneInfo.sort((a, b) => a.craneName.split("_")[1] - b.craneName.split("_")[1]); // 크레인이름 오름차순 정렬
