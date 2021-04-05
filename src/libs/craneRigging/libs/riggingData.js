@@ -14,7 +14,7 @@ const getRiggingData = (workValue, unlockedCraneNames) => {
     workValue.workBuilding.vertical > 129 ||
     workValue.workWeight < 1 ||
     workValue.workBuilding.height < 1 ||
-    workValue.workBuilding.vertical <= 0
+    workValue.workBuilding.vertical < 0
   ) {
     console.log("입력한 조건값이 올바르지 않습니다.");
     return craneInfo;

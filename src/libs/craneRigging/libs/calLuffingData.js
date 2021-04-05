@@ -1,4 +1,4 @@
-import { FFLBlockED, FFLBuildingED, mTBlockED, mTBuildingED } from "./calUtil";
+import { FFLBlockED, FFLBuildingED, mTBlockED, mTBuildingED } from "./luffingCalED";
 
 const riggingData = (spec, index, workValue, heightOfHookCrane, craneDistance, params, checkCode) => {
   const marginHeight = Number(
@@ -114,7 +114,7 @@ const findLuffingSpecTable = (
         params.safetyFactor = safetyFactor;
         if (workValue.block.vertical1) {
           blockVertical1 = workValue.block.vertical1 + params.luffingMargin + params.adapterMargin;
-          workBuildingVertical = workValue.block.vertical;
+          workBuildingVertical = workValue.workBuilding.vertical;
         } else workBuildingVertical = workValue.workBuilding.vertical + params.luffingMargin + params.adapterMargin;
         const B1B2WDistance = workBuildingVertical + blockVertical1 + workValue.block.vertical2;
         const B1WDistance = workBuildingVertical + blockVertical1;
@@ -123,7 +123,6 @@ const findLuffingSpecTable = (
         if (B1B2WDistance + craneDistance < spec.distance[i]) {
           // 나중에 resolver에서 mutation의 args단에서 처리
           // if (!workValue.block.vertical1) blockVertical1 = 0;
-
           // 장애물이 있을 때 크레인으로부터의 각도
           let blockAngle = 0;
           if (workValue.block.height1)
@@ -149,8 +148,9 @@ const findLuffingSpecTable = (
               if (params.h1 + heightOfHookCrane.craneHeight > workValue.block.height1) {
                 const checkCode = 1;
                 // console.log(checkCode);
-                params.mTBlockED = mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                params.mTBlockED = luff_mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
                 // 크레인이 작업할 때 내려 앉는 길이를 고려해서 적용.
+                // console.log(checkCode, params.mTBlockED);
                 if (params.mTBlockED >= 3)
                   return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
               }
@@ -164,7 +164,8 @@ const findLuffingSpecTable = (
               if (params.h1 + heightOfHookCrane.craneHeight > workValue.block.height1) {
                 const checkCode = 2;
                 // console.log(checkCode);
-                params.mTBlockED = mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                params.mTBlockED = luff_mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                // console.log(checkCode, params.mTBlockED);
                 if (params.mTBlockED >= 3)
                   return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
               }
@@ -183,7 +184,8 @@ const findLuffingSpecTable = (
                   const checkCode = 3;
                   // console.log(checkCode);
                   // FFLBlockED = flyFixLuffingToBlockEdgeDistance
-                  params.FFLBlockED = FFLBlockED(workValue, params, heightOfHookCrane.craneHeight, spec);
+                  params.FFLBlockED = luff_FFLBlockED(workValue, params, heightOfHookCrane.craneHeight, spec);
+                  // console.log(checkCode, params.FFLBlockED);
                   if (params.FFLBlockED >= 3)
                     return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
                 }
@@ -213,9 +215,9 @@ const findLuffingSpecTable = (
                 // console.log(checkCode);
                 params.mTBlockED = 0;
                 if (workValue.block.height1)
-                  params.mTBlockED = mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
-                params.mTBuildingED = mTBuildingED(workValue, heightOfHookCrane.craneHeight, spec, i);
-
+                  params.mTBlockED = luff_mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                params.mTBuildingED = luff_mTBuildingED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                // console.log(checkCode, params.mTBlockED, params.mTBuildingED);
                 // EdgeDistance길이 비교. 더 짧은 길이로 정리.
                 if (params.mTBlockED < params.mTBuildingED) {
                   if (params.mTBlockED >= 3 || (params.mTBlockED === 0 && params.mTBuildingED >= 3))
@@ -241,9 +243,9 @@ const findLuffingSpecTable = (
                   // console.log(checkCode);
                   params.mTBlockED = 0;
                   if (workValue.block.height1)
-                    params.mTBlockED = mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
-                  params.FFLBuildingED = FFLBuildingED(workValue, params, heightOfHookCrane.craneHeight, spec);
-
+                    params.mTBlockED = luff_mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                  params.FFLBuildingED = luff_FFLBuildingED(workValue, params, heightOfHookCrane.craneHeight, spec);
+                  // console.log(checkCode, params.mTBlockED, params.FFLBuildingED);
                   if (params.mTBlockED < params.FFLBuildingED) {
                     if (params.mTBlockED >= 3 || (params.mTBlockED === 0 && params.FFLBuildingED >= 3))
                       return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
@@ -274,9 +276,9 @@ const findLuffingSpecTable = (
                   const checkCode = 6;
                   // console.log(checkCode);
                   params.FFLBlockED = 0;
-                  if (workValue.block.height1) FFLBlockED(workValue, params, heightOfHookCrane.craneHeight, spec);
-                  params.FFLBuildingED = FFLBuildingED(workValue, params, heightOfHookCrane.craneHeight, spec);
-
+                  if (workValue.block.height1) luff_FFLBlockED(workValue, params, heightOfHookCrane.craneHeight, spec);
+                  params.FFLBuildingED = luff_FFLBuildingED(workValue, params, heightOfHookCrane.craneHeight, spec);
+                  // console.log(checkCode, params.FFLBlockED, params.FFLBuildingED);
                   if (params.FFLBlockED < params.FFLBuildingED) {
                     if (params.FFLBlockED >= 3 || (params.FFLBlockED === 0 && params.FFLBuildingED >= 3))
                       return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
@@ -303,9 +305,10 @@ const findLuffingSpecTable = (
                 if (blockLuffingAngle < params.luffingAngle) {
                   const checkCode = 7;
                   // console.log(checkCode);
-                  params.mTBlockED = mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
-                  params.FFLBuildingED = FFLBuildingED(workValue, params, heightOfHookCrane.craneHeight, spec);
-
+                  params.mTBlockED = 0;
+                  if (workValue.block.height1)
+                    params.mTBlockED = luff_mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                  params.FFLBuildingED = luff_FFLBuildingED(workValue, params, heightOfHookCrane.craneHeight, spec);
                   if (params.mTBlockED < params.FFLBuildingED) {
                     if (params.mTBlockED >= 3 || (params.mTBlockED === 0 && params.FFLBuildingED >= 3))
                       return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
@@ -319,10 +322,11 @@ const findLuffingSpecTable = (
               else if (params.h1 + heightOfHookCrane.craneHeight > workValue.workBuilding.height) {
                 const checkCode = 8;
                 // console.log(checkCode);
-
-                params.mTBlockED = mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
-                params.mTBuildingED = mTBuildingED(workValue, heightOfHookCrane.craneHeight, spec, i);
-
+                params.mTBlockED = 0;
+                if (workValue.block.height1)
+                  params.mTBlockED = luff_mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                params.mTBuildingED = luff_mTBuildingED(workValue, heightOfHookCrane.craneHeight, spec, i);
+                // console.log(checkCode, params.mTBlockED, params.mTBuildingED);
                 if (params.mTBlockED < params.mTBuildingED) {
                   if (params.mTBlockED >= 3 || (params.mTBlockED === 0 && params.mTBuildingED >= 3))
                     return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
