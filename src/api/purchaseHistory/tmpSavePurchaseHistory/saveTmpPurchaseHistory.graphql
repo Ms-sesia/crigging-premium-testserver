@@ -1,0 +1,3 @@
+type Mutation {
+  saveTmpPurchaseHistory(price: Int!, craneNames: [String!]!): Boolean
+}

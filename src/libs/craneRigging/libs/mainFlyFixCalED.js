@@ -28,5 +28,3 @@ export const MFF_FFLBuildingED = (workValue, params, craneHeight, mainAngle, spe
   const dist = params.d2 - workValue.workBuilding.vertical - tmpBuildingDist;
   return dist;
 };
-
-flyFixLuffingToBuildingEdgeDistance;

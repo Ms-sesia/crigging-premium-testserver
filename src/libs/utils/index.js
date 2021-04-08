@@ -6,7 +6,7 @@ export const generateSecretCode = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-export const sendSecretSMS = async (phoneNumber, secretCode) => {
+export const sendSecretSMS = async (phoneNumber, resolver, secretCode) => {
   const Auth = {
     key: process.env.SMSKEY,
     user_id: process.env.SMSUSERID,
@@ -19,7 +19,10 @@ export const sendSecretSMS = async (phoneNumber, secretCode) => {
     body: {
       sender: "031-5186-6033",
       receiver: phoneNumber,
-      msg: `안녕하세요 플랫큐브입니다 고객님의 인증 번호는 ${secretCode} 입니다 `,
+      msg:
+        resolver === "secretCode"
+          ? `안녕하세요 플랫큐브입니다 고객님의 인증 번호는 ${secretCode} 입니다 `
+          : `안녕하세요 플랫큐브입니다 결제 인증 번호는 ${secretCode} 입니다 `,
     },
   };
   try {

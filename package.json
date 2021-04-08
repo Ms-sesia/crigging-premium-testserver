@@ -6,8 +6,8 @@
   "scripts": {
     "rigging": "babel-node ./src/libs/craneRigging/test.js",
     "start": "nodemon --exec babel-node ./src/server.js",
-    "prisma": "npx prisma migrate up --experimental && npx prisma generate",
-    "migrate": "npx prisma migrate save --name init --experimental",
+    "generate": "npx prisma migrate deploy --preview-feature && npx prisma generate",
+    "prismadev": "npx prisma migrate dev --name init --preview-feature",
     "studio": "npx prisma studio",
     "build": "babel src -d build",
     "filecopy": "cp -rvf src/* build/"

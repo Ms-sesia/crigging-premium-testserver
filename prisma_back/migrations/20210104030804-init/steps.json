@@ -1,0 +1,215 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "mainBoom",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "mainAngle",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "totalExtLength",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "adapter1",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "extBoom1",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "extBoom2",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "extBoom3",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "extBoom4",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "adapter2",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "flyFixLuffing",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "flyFixLuffingAngle",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "distance1",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "distance2",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "craneDistance",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "centerToBlockDistance",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "craneToBuildingDistance",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "craneToBlockDistance",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "totalDistance",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "tableDistance",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "height1",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "height2",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "totalHeight",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "marginHeight",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "workingArea",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "tableWeight",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "safetyFactor",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "RiggingData",
+      "field": "workWeight",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "WorkBuilding",
+      "field": "horizontal",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "WorkBuilding",
+      "field": "vertical",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "WorkBuilding",
+      "field": "height",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Block",
+      "field": "vertical1",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Block",
+      "field": "horizontal1",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Block",
+      "field": "height1",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Block",
+      "field": "vertical2",
+      "type": "Float"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Block",
+      "field": "height2",
+      "type": "Float"
+    }
+  ]
+}

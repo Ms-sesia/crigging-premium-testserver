@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 
 export default {
   PurchaseHistory: {
-    user: async (parent) => prisma.purchaseHistory.findUnique({ where: { id: parent.id } }).user(),
+    user: async (parent) => await prisma.purchaseHistory.findUnique({ where: { id: parent.id } }).user(),
+    paidCranes: async (parent) => await prisma.purchaseHistory.findUnique({ where: { id: parent.id } }).paidCranes(),
   },
 };

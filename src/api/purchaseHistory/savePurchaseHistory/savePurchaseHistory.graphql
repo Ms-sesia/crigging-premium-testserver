@@ -2,7 +2,7 @@ type Mutation {
   savePurchaseHistory(
     date: String
     cardCompany: String
-    craneName: String!
+    craneNames: [String!]!
     price: Float
     installment: String
     receipt: String

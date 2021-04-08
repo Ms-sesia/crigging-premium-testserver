@@ -7,18 +7,21 @@ export default {
     savePurchaseHistory: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { date, craneName, cardCompany, price, installment, receipt } = args;
-      return await prisma.purchaseHistory.create({
-        data: {
-          date,
-          craneName,
-          cardCompany,
-          price,
-          installment,
-          receipt,
-          user: { connect: { id: user.id } },
-        },
-      });
+      const { date, craneNames, cardCompany, price, installment, receipt } = args;
+      for (let i = 0; i < craneNames.length; i++) {
+        await prisma.purchaseHistory.create({
+          data: {
+            date,
+            craneName: craneNames[i],
+            cardCompany,
+            price,
+            installment,
+            receipt,
+            user: { connect: { id: user.id } },
+          },
+        });
+      }
+      return true;
     },
   },
 };

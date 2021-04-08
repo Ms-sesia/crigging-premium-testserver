@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = "***"
+}
+
+model User {
+  id              Int        @id @default(autoincrement())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @default(now())
+  name            String     @unique
+  email           String     @unique
+  phoneNumber     String     @unique
+  loginSecretCode String?
+  avatar          String     @default(value: "")
+  posts           Post[]
+  comments        Comment[]
+  likes           Like[]
+  overWorks       OverWork[]
+  following       User[]     @relation("FollowRelation", references: [id])
+  followers       User[]     @relation("FollowRelation", references: [id])
+}
+
+model Post {
+  id           Int          @id @default(autoincrement())
+  title        String
+  text         String?
+  postCategory PostCategory
+  comments     Comment[]
+  likes        Like[]
+  postAuthor   User         @relation(fields: [postAuthorId], references: [id])
+  postAuthorId Int
+  files        File[]
+}
+
+model Comment {
+  id              Int      @id @default(autoincrement())
+  text            String
+  post            Post     @relation(fields: [postId], references: [id])
+  postId          Int
+  commentAuthor   User     @relation(fields: [commentAuthorId], references: [id])
+  commentAuthorId Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+}
+
+model Like {
+  id     Int   @id @default(autoincrement())
+  post   Post  @relation(fields: [postId], references: [id])
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+  postId Int
+}
+
+model OverWork {
+  id               Int              @id @default(autoincrement())
+  date             DateTime?
+  yearMonth        String?
+  yearMonthDat     String?
+  week             Int
+  location         String
+  content          String
+  overWorkCategory OverWorkCategory
+  amount           Int
+  author           User             @relation(fields: [authorId], references: [id])
+  authorId         Int
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @default(now())
+}
+
+model File {
+  id     Int    @id @default(autoincrement())
+  url    String
+  post   Post?  @relation(fields: [postId], references: [id])
+  postId Int?
+}
+
+enum PostCategory {
+  COMMON
+  JOB
+  ETC
+  REPAIR
+}
+
+enum OverWorkCategory {
+  EARLY
+  NIGHT
+  ALLNIGHT
+  WEEKEND
+  OVERTIME
+}

@@ -12,7 +12,7 @@ export default {
       if (user) {
         try {
           const secretCode = generateSecretCode();
-          await sendSecretSMS(args.phoneNumber, secretCode);
+          await sendSecretSMS(args.phoneNumber, "secretCode", secretCode);
           await prisma.user.update({
             where: { phoneNumber: args.phoneNumber },
             data: { loginSecretCode: secretCode },

@@ -1,0 +1,99 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Post",
+      "field": "content",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Post",
+      "field": "text"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Comment",
+      "field": "content",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Comment",
+      "field": "text"
+    },
+    {
+      "tag": "CreateField",
+      "model": "OverWork",
+      "field": "workingTime",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "OverWork",
+      "field": "overWorkAuthor",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "OverWork",
+          "field": "overWorkAuthor"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "OverWork",
+          "field": "overWorkAuthor"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[overWorkAuthorId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "OverWork",
+          "field": "overWorkAuthor"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "OverWork",
+      "field": "overWorkAuthorId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "OverWork",
+      "field": "author"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "OverWork",
+      "field": "authorId"
+    }
+  ]
+}

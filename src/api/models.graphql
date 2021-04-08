@@ -147,13 +147,36 @@ type EdgeDistance {
 
 type PurchaseHistory {
   id: Int!
+  createdAt: String
+  updatedAt: String
   date: String
+  paidCranes: [PaidCraneNames!]
   cardCompany: String
-  craneName: String!
-  price: Float
+  price: Int
   installment: String
   receipt: String
   user: User
+  paid: Boolean
+}
+
+type PaidCraneNames {
+  id: Int!
+  createdAt: String
+  updatedAt: String
+  craneName: String
+}
+
+type TmpPurchaseHistory {
+  id: Int!
+  phoneNumber: String
+  craneNames: [TmpCraneNames!]
+  price: Int
+  authCode: String
+}
+
+type TmpCraneNames {
+  id: Int!
+  craneName: String
 }
 
 scalar Date

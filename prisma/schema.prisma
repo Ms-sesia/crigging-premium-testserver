@@ -172,17 +172,42 @@ model File {
 }
 
 model PurchaseHistory {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int              @id @default(autoincrement())
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
   date        String
-  craneName   String
+  paidCranes  PaidCraneNames[]
   cardCompany String
-  price       Float
-  installment String
-  receipt     String
-  user        User     @relation(fields: [userId], references: [id])
+  price       Int
+  installment String // 일시불, 할부
+  receipt     String // 전표 미매입
+  user        User             @relation(fields: [userId], references: [id])
   userId      Int
+  paid        Boolean
+}
+
+model PaidCraneNames {
+  id                Int              @id @default(autoincrement())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  craneName         String
+  PurchaseHistory   PurchaseHistory? @relation(fields: [purchaseHistoryId], references: [id])
+  purchaseHistoryId Int?
+}
+
+model TmpPurchaseHistory {
+  id          Int             @id @default(autoincrement())
+  phoneNumber String          @unique
+  craneNames  TmpCraneNames[]
+  price       Int
+  authCode    String
+}
+
+model TmpCraneNames {
+  id                   Int                 @id @default(autoincrement())
+  craneName            String
+  TmpPurchaseHistory   TmpPurchaseHistory? @relation(fields: [tmpPurchaseHistoryId], references: [id])
+  tmpPurchaseHistoryId Int?
 }
 
 enum PostCategory {
