@@ -175,15 +175,14 @@ model PurchaseHistory {
   id          Int              @id @default(autoincrement())
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
-  date        String
+  date        String?
   paidCranes  PaidCraneNames[]
-  cardCompany String
+  cardCompany String?
   price       Int
-  installment String // 일시불, 할부
-  receipt     String // 전표 미매입
+  installment String? // 일시불, 할부
+  receipt     String? // 전표 미매입
   user        User             @relation(fields: [userId], references: [id])
   userId      Int
-  paid        Boolean
 }
 
 model PaidCraneNames {
@@ -191,7 +190,7 @@ model PaidCraneNames {
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   craneName         String
-  PurchaseHistory   PurchaseHistory? @relation(fields: [purchaseHistoryId], references: [id])
+  purchaseHistory   PurchaseHistory? @relation(fields: [purchaseHistoryId], references: [id])
   purchaseHistoryId Int?
 }
 
@@ -201,6 +200,7 @@ model TmpPurchaseHistory {
   craneNames  TmpCraneNames[]
   price       Int
   authCode    String
+  paid        Boolean         @default(false)
 }
 
 model TmpCraneNames {

@@ -2,7 +2,7 @@ import { PrismaClient } from ".prisma/client";
 import { generateSecretCode } from "../../../libs/utils";
 
 const prisma = new PrismaClient();
-// 결제인증을 위해 결제 내역 임시 저장 resolver
+// App: 결제인증을 위해 결제 내역 임시 저장
 export default {
   Mutation: {
     saveTmpPurchaseHistory: async (_, args, { request, isAuthenticated }) => {

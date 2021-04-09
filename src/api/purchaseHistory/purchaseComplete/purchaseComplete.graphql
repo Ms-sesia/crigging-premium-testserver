@@ -1,10 +1,11 @@
 type Mutation {
-  savePurchaseHistory(
+  purchaseComplete(
+    phoneNumber: String!
+    craneNames: [String!]!
+    price: Int!
     date: String
     cardCompany: String
-    craneNames: [String!]!
-    price: Float
     installment: String
     receipt: String
-  ): PurchaseHistory
+  ): Boolean
 }

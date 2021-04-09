@@ -2,7 +2,7 @@ import { PrismaClient } from ".prisma/client";
 import { sendSecretSMS } from "../../../libs/utils";
 
 const prisma = new PrismaClient();
-// 웹에서 사용하는 결제 인증용 resolver
+// Web: 결제내용 확인을 위한 인증요청.
 export default {
   Query: {
     requestPurchaseAuthCode: async (_, args, __) => {

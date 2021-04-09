@@ -153,6 +153,7 @@ type PurchaseHistory {
   paidCranes: [PaidCraneNames!]
   cardCompany: String
   price: Int
+  authCode: String
   installment: String
   receipt: String
   user: User
