@@ -3,7 +3,7 @@ import { PrismaClient } from ".prisma/client";
 const prisma = new PrismaClient();
 // Web: 결제인증번호 확인 후 결제내용 전달.
 export default {
-  Query: {
+  Mutation: {
     confirmPurchaseAuthCode: async (_, args, __) => {
       const { phoneNumber, authCode } = args;
       try {

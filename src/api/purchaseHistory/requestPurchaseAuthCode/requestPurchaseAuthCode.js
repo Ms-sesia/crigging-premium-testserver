@@ -4,7 +4,7 @@ import { sendSecretSMS } from "../../../libs/utils";
 const prisma = new PrismaClient();
 // Web: 결제내용 확인을 위한 인증요청.
 export default {
-  Query: {
+  Mutation: {
     requestPurchaseAuthCode: async (_, args, __) => {
       const { phoneNumber } = args;
       try {
