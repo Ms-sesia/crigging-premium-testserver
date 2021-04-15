@@ -11,7 +11,18 @@ export default {
       const { price, craneNames } = args;
       const authCode = generateSecretCode();
       try {
-        const tmpPurchaseHistory = await prisma.tmpPurchaseHistory.create({
+        const D_PH = await prisma.tmpPurchaseHistory.findUnique({ where: { phoneNumber: user.phoneNumber } });
+        if (D_PH) {
+          const DPHCraneNames = await prisma.tmpCraneNames.findMany({ where: { tmpPurchaseHistoryId: D_PH.id } });
+          if (DPHCraneNames) {
+            for (let i = 0; i < DPHCraneNames.length; i++) {
+              await prisma.tmpCraneNames.delete({ where: { id: DPHCraneNames[i].id } });
+            }
+            await prisma.tmpPurchaseHistory.delete({ where: { phoneNumber: user.phoneNumber } });
+          }
+        }
+
+        const TPH = await prisma.tmpPurchaseHistory.create({
           data: {
             price,
             authCode,
@@ -22,13 +33,13 @@ export default {
           await prisma.tmpCraneNames.create({
             data: {
               craneName: craneNames[i],
-              TmpPurchaseHistory: { connect: { id: tmpPurchaseHistory.id } },
+              TmpPurchaseHistory: { connect: { id: TPH.id } },
             },
           });
         }
         return true;
       } catch (e) {
-        console.log("Error location: tmpSavePurchaseHistory.", e);
+        console.log("Error location: saveTmpPurchaseHistory.", e);
         throw new Error("결제내역 임시저장에 실패하였습니다.");
       }
     },

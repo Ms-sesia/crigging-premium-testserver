@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "rigging": "babel-node ./src/libs/craneRigging/test.js",
-    "start": "nodemon --exec babel-node ./src/server.js",
+    "start": "nodemon --exec babel-node ./src/testServer.js",
     "generate": "npx prisma migrate deploy --preview-feature && npx prisma generate",
     "prismadev": "npx prisma migrate dev --name init --preview-feature",
     "studio": "npx prisma studio",

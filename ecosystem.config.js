@@ -19,12 +19,12 @@ module.exports = {
         "package-lock.json",
         "package.json",
       ],
-      env: {
-        NODE_ENV: "development",
-      },
-      env_production: {
-        NODE_ENV: "production",
-      },
+      // env: {
+      //   NODE_ENV: "development",
+      // },
+      // env_production: {
+      //   NODE_ENV: "production",
+      // },
     },
     {
       name: "criggingPre-prismaDB",
