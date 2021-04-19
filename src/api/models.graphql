@@ -173,6 +173,7 @@ type TmpPurchaseHistory {
   craneNames: [TmpCraneNames!]
   price: Int
   authCode: String
+  paid: Boolean
 }
 
 type TmpCraneNames {

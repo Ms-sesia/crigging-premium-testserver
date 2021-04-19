@@ -10,7 +10,12 @@ export default {
         const tmpPCH = await prisma.tmpPurchaseHistory.findUnique({
           where: { phoneNumber },
         });
-        if (tmpPCH.authCode === authCode) return tmpPCH;
+        const PcraneName = (await prisma.tmpCraneNames.findMany({ where: { tmpPurchaseHistoryId: tmpPCH.id } })).map(
+          (tmp) => tmp.craneName
+        );
+        console.log(tmpPCH, PcraneName);
+        // if (tmpPCH.authCode === authCode) return tmpPCH;
+        if (tmpPCH.authCode === authCode) return { TPH: tmpPCH, craneNames: PcraneName };
         else throw 1;
       } catch (e) {
         console.log("Error location: confirmPurchaseAuthCode.", e);

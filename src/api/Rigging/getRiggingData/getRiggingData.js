@@ -13,8 +13,6 @@ export default {
         block,
       };
       try {
-        // console.log("getRiggingData", riggingInputData, paidCraneNames);
-        // const result = getRiggingData(riggingInputData, paidCraneNames);
         return getRiggingData(riggingInputData, paidCraneNames);
       } catch (e) {
         throw new Error("ERROR: riggingData의 return이 잘못되었습니다.");
