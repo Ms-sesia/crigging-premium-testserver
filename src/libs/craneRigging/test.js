@@ -49,7 +49,7 @@ const unlockedCraneName = [
 ];
 
 const craneDataCal = startApp(workValue, unlockedCraneName);
-console.log(craneDataCal);
+// console.log("test.js", craneDataCal);
 // craneDataCal.forEach((data, index) => {
 //   console.log(data.craneName);
 //   console.log(data.craneCode);
@@ -57,7 +57,6 @@ console.log(craneDataCal);
 //   console.log(data.craneData);
 //   console.log("------------------------------------------------------------------");
 // });
-
 
 //* ------ getRiggingData form -------
 // mutation {
@@ -224,7 +223,6 @@ console.log(craneDataCal);
 //     }
 //   )
 // }
-
 
 // [
 //   {

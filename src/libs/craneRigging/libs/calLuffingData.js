@@ -1,4 +1,4 @@
-import { FFLBlockED, FFLBuildingED, mTBlockED, mTBuildingED } from "./luffingCalED";
+import { luff_mTBlockED, luff_FFLBlockED, luff_mTBuildingED, luff_FFLBuildingED } from "./luffingCalED";
 
 const riggingData = (spec, index, workValue, heightOfHookCrane, craneDistance, params, checkCode) => {
   const marginHeight = Number(
@@ -326,7 +326,6 @@ const findLuffingSpecTable = (
                 if (workValue.block.height1)
                   params.mTBlockED = luff_mTBlockED(workValue, heightOfHookCrane.craneHeight, spec, i);
                 params.mTBuildingED = luff_mTBuildingED(workValue, heightOfHookCrane.craneHeight, spec, i);
-                // console.log(checkCode, params.mTBlockED, params.mTBuildingED);
                 if (params.mTBlockED < params.mTBuildingED) {
                   if (params.mTBlockED >= 3 || (params.mTBlockED === 0 && params.mTBuildingED >= 3))
                     return riggingData(spec, i, workValue, heightOfHookCrane, rearDistance, params, checkCode);
@@ -342,25 +341,5 @@ const findLuffingSpecTable = (
     }
   }
 };
-
-/*
-장애물이 없을 때의 알고리즘
-
-if(workValue.workBuilding.vertical < params.d2){ // 작업거리가 d2보다 작을 때
-  if(workValue.workBuilding.height > (params.h1 + heightOfHookCrane.craneHeight)){ // 작업높이가 h1보다 클 때
-    const luffingAngle2 = Number((Math.atan( (workValue.workBuilding.height - heightOfHookCrane.craneHeight - params.h1) / (params.d2 - workValue.workBuilding.vertical) )*(180/Math.PI)).toFixed(1));  // d2 시작 지점에서 건물까지의 대각선 각도
-    if(params.luffingAngle > luffingAngle2){
-      return riggingData(spec, i, workValue, heightOfHookCrane, craneDistance, params);
-    }
-  } else if(workValue.workBuilding.height < (params.h1 + heightOfHookCrane.craneHeight)){ // 작업높이가 h1보다 작을 때
-    return riggingData(spec, i, workValue, heightOfHookCrane, craneDistance, params);
-  }
-} else if(workValue.workBuilding.vertical > params.d2 && workValue.workBuilding.vertical < spec.distance[i] - craneDistance){  // 작업 시작위치가 d1-크레인거리 에서 d2사이일 때.
-  const mainAngle2 = Number((Math.atan((workValue.workBuilding.height - heightOfHookCrane.craneHeight)/spec.distance[i] - workValue.workBuilding.vertical)*(180/Math.PI)).toFixed(1));  // 크레인센터에서부터 건물까지의 대각선 각도
-  if(spec.mainAngle > mainAngle2){  // 크레인 메인붐이 건물에 닿지 않기위한 최소 조건
-    return riggingData(spec, i, workValue, heightOfHookCrane, craneDistance, params);
-  }
-}
-*/
 
 export default findLuffingSpecTable;
