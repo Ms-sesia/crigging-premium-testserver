@@ -157,7 +157,6 @@ type PurchaseHistory {
   installment: String
   receipt: String
   user: User
-  paid: Boolean
 }
 
 type PaidCraneNames {

@@ -32,8 +32,7 @@ async function CraneRigging(craneInfo) {
   let canvasHeight;
   const craneName = craneInfo.craneData.craneName;
   let pixelPerMeter = ppm[craneName]; //1m에 몇 픽셀인지 계산
-  
-  
+    
   const pointFromOrigin = getPoint({x: 0, y: 0}, pixelPerMeter);
   const totalDistance = pointFromOrigin(craneData.totalDistance);
   const totalHeight = pointFromOrigin(craneData.totalHeight);
@@ -49,11 +48,9 @@ async function CraneRigging(craneInfo) {
   await backgroundColor(canvasRef.getContext('2d'), 'white', canvasWidth, canvasHeight);  
 
   const { modParts, buildParts } = await getCraneRiggingInfo(craneInfo, canvasRef, offSetX, offSetY, pixelPerMeter);
-  
-  
+    
   // const ctx = canvas.getContext('2d');
   
-
   await drawImage(modParts, buildParts);
   // await saveImage(canvasRef);
 

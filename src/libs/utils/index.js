@@ -47,9 +47,9 @@ export const sendMail = async ({ to, subject, html }) => {
   const option = {
     from: process.env.TESTMAIL_ID,
     to: to,
-    subject: subject,
-    text: html,
-    html: html,
+    subject: `Crigging ${to}님의 건의사항 : ${subject}`,
+    text: `${html}`,
+    // html: html,
   };
 
   const info = await transporter.sendMail(option);
