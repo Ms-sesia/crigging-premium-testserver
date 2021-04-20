@@ -34,7 +34,7 @@ export const sendSecretSMS = async (phoneNumber, resolver, secretCode) => {
 
 export const generateToken = (user) => jwt.sign(user, process.env.JWT_SECRET);
 
-export const sendMail = async ({ to, subject, html }) => {
+export const sendMail = async ({ to, subject, html }, name, suggestion) => {
   const transporter = nodemailer.createTransport({
     service: "worksmobile",
     host: "smtp.worksmobile.com",
@@ -44,13 +44,21 @@ export const sendMail = async ({ to, subject, html }) => {
       pass: process.env.TESTMAIL_PW,
     },
   });
-  const option = {
-    from: process.env.TESTMAIL_ID,
-    to: to,
-    subject: `Crigging ${to}님의 건의사항 : ${subject}`,
-    text: `${html}`,
-    // html: html,
-  };
+  const option =
+    suggestion === true
+      ? {
+          from: process.env.TESTMAIL_ID,
+          to: process.env.PLATCUBEMAIL_ID,
+          subject: `Crigging, ${name}님의 건의사항 : ${subject}`,
+          text: `제목: ${subject}\n내용: ${html}`,
+          // html: html,
+        }
+      : {
+          from: process.env.TESTMAIL_ID,
+          to: to,
+          subject: subject,
+          html: html,
+        };
 
   const info = await transporter.sendMail(option);
 
