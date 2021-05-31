@@ -41,6 +41,7 @@ export default {
         });
         if (user.length) throw 1;
 
+        // ---------- 프리미엄 전까지는 무료 제공. 나중에 업데이트시 삭제
         const createUser = await prisma.user.create({
           data: { name, email, phoneNumber },
         });
@@ -58,6 +59,8 @@ export default {
             },
           });
         }
+        // -----------
+
         return true;
         // await prisma.user.create({
         //   data: {
