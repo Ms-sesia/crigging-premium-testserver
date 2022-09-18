@@ -1,6 +1,6 @@
-node_modules/
+# data/
+build
+node_modules
+prisma/migrations
 .env
-build/
-prisma/
-prisma_back/
-data/
+package-lock.json
