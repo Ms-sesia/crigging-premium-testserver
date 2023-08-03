@@ -7,225 +7,230 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id              Int               @id @default(autoincrement())
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  name            String            @unique
-  email           String            @unique
-  phoneNumber     String            @unique
-  loginSecretCode String?
-  avatar          String?
-  bio             String?
-  posts           Post[]
-  comments        Comment[]
-  likes           Like[]
-  riggingRecords  CraneData[]
-  overWorks       OverWork[]
-  // following       User[]            @relation("FollowRelation", references: [id])
-  // followers       User[]            @relation("FollowRelation", references: [id])
-  purchaseHistory PurchaseHistory[]
+// 사용자
+model user {
+  user_id              Int               @id @default(autoincrement())
+  user_createdAt       DateTime          @default(now())
+  user_name            String            @default("") @db.VarChar(20) // 이름 최대 20자
+  user_email           String            @default("") @db.VarChar(50) // 이메일 최대 50자
+  user_cellphone       String            @unique @default("") @db.VarChar(15) // 핸드폰번포 15자
+  user_loginSecretCode String            @default("") @db.VarChar(6) // 문자 인증번호 6자
+  user_profile_img     String            @default("") @db.VarChar(200) // 프로필이미지(url) 200자
+  posts                post[] // 게시글
+  comments             comment[] // 댓글
+  riggingRecords       craneData[]
+  overWorks            overWork[]
+  purchaseHistory      purchaseHistory[]
 }
 
+// 팔로우/팔로잉
 model follow {
   flw_id       Int @id @default(autoincrement())
-  to_user_id   Int
-  from_user_id Int
+  to_user_id   Int // A → B 팔로우 할 때 B id
+  from_user_id Int // A → B 팔로우 할 때 A id
 }
 
-model Post {
-  id           Int          @id @default(autoincrement())
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  content      String?
-  postCategory PostCategory
-  comments     Comment[]
-  likes        Like[]
-  postAuthor   User         @relation(fields: [postAuthorId], references: [id])
-  postAuthorId Int
-  files        File[]
+// 게시글
+model post {
+  post_id        Int           @id @default(autoincrement())
+  post_createdAt DateTime      @default(now())
+  post_updatedAt DateTime      @updatedAt
+  post_text      String        @default("") @db.VarChar(500) // 게시글 내용 500자
+  postCategory   post_category
+  comments       comment[]
+  post_likes     post_like[] // 게시글 좋아요
+  post_files     post_file[]
+  user           user          @relation(fields: [user_id], references: [user_id]) // 작성자
+  user_id        Int // 작성자 Id
 }
 
-model Comment {
-  id              Int      @id @default(autoincrement())
-  content         String
-  post            Post     @relation(fields: [postId], references: [id])
-  postId          Int
-  commentAuthor   User     @relation(fields: [commentAuthorId], references: [id])
-  commentAuthorId Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+// 게시글 이미지
+model post_file {
+  pf_id        Int      @id @default(autoincrement())
+  pf_createdAt DateTime @default(now())
+  pf_url       String   @default("") @db.VarChar(200) // 게시글 업로드 파일 200자
+  post         post     @relation(fields: [post_id], references: [post_id])
+  post_id      Int
 }
 
-model Like {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  post      Post     @relation(fields: [postId], references: [id])
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
-  postId    Int
+// 게시글 좋아요
+model post_like {
+  pl_id        Int      @id @default(autoincrement())
+  pl_createdAt DateTime @default(now())
+  pl_like      Boolean  @default(true) // 좋아요 누른 상태. 좋아요 : true, 좋아요x : false
+  pl_user_id   Int // 좋아요 누른 사용자 user_id
+  post         post     @relation(fields: [post_id], references: [post_id])
+  post_id      Int
 }
 
-model CraneData {
-  id             Int         @id @default(autoincrement())
-  createdAt      DateTime    @default(now())
-  riggingIndex   Int
-  craneName      String?
-  craneCode      String?
-  craneModeName  String?
-  excelSheetName String?
-  riggingData    RiggingData @relation(fields: [riggingDataId], references: [id])
-  riggingDataId  Int
-  user           User?       @relation(fields: [userId], references: [id])
-  userId         Int?
+// 댓글
+model comment {
+  cmt_id        Int      @id @default(autoincrement())
+  cmt_createdAt DateTime @default(now())
+  cmt_text      String   @default("") @db.VarChar(200) // 댓글 내용 200자
+  post          post     @relation(fields: [post_id], references: [post_id])
+  post_id       Int
+  user          user     @relation(fields: [user_id], references: [user_id])
+  user_id       Int
 }
 
-model RiggingData {
-  id                       Int          @id @default(autoincrement())
-  mainBoom                 Float
-  mainAngle                Float
-  totalExtLength           Float
-  adapter1                 Float
-  extBoom1                 Float
-  extBoom2                 Float
-  extBoom3                 Float
-  extBoom4                 Float
-  adapter2                 Float
-  flyFixLuffing            Float
-  flyFixLuffingAngle       Float
-  distance1                Float
-  distance2                Float
-  craneDistance            Float
-  edgeDistance             EdgeDistance @relation(fields: [edgeDistanceId], references: [id])
-  edgeDistanceId           Int
-  centerToBuildingDistance Float
-  centerToBlockDistance    Float
-  craneToBuildingDistance  Float
-  craneToBlockDistance     Float
-  totalDistance            Float
-  tableDistance            Float
-  height1                  Float
-  height2                  Float
-  totalHeight              Float
-  marginHeight             Float
-  workingArea              Float
-  tableWeight              Float
-  counterWeight            String
-  overRear                 String
-  optional                 String
-  safetyFactor             Float
-  craneLocation            String
-  workWeight               Float
-  workBuilding             WorkBuilding @relation(fields: [workBuildingId], references: [id])
-  workBuildingId           Int
-  block                    Block        @relation(fields: [blockId], references: [id])
-  blockId                  Int
-  CraneData                CraneData[]
+// 크레인 정보 - 데이터 수집용
+model craneData {
+  cd_id             Int         @id @default(autoincrement())
+  cd_createdAt      DateTime    @default(now())
+  cd_riggingIndex   Int // 이게 뭘까....
+  cd_craneName      String      @default("") @db.VarChar(100) // 크레인명
+  cd_craneCode      String      @default("") @db.VarChar(100) // 크레인 코드명
+  cd_craneModeName  String      @default("") @db.VarChar(100) // 크레인 모드명
+  cd_excelSheetName String      @default("") @db.VarChar(100) // 크레인 엑셀 데이터 시트명
+  riggingData       riggingData @relation(fields: [riggingDataId], references: [rd_id])
+  riggingDataId     Int
+  user              user        @relation(fields: [user_id], references: [user_id])
+  user_id           Int
 }
 
-model EdgeDistance {
-  id                      Int           @id @default(autoincrement())
-  mainToBlock             Float
-  mainToBuilding          Float
-  flyFixLuffingToBlock    Float
-  flyFixLuffingToBuilding Float
-  RiggingData             RiggingData[]
+// 리깅한 정보 - 데이터 수집용
+model riggingData {
+  rd_id                       Int          @id @default(autoincrement())
+  rd_mainBoom                 Float        @default(0) // 메인붐 길이
+  rd_mainAngle                Float        @default(0) // 메인붐 각도
+  rd_totalExtLength           Float        @default(0) // 전체 연장 붐 길이
+  rd_adapter1                 Float        @default(0) // 어뎁터 1번 길이
+  rd_extBoom1                 Float        @default(0) // 연장 1번 길이
+  rd_extBoom2                 Float        @default(0) // 연장 2번 길이
+  rd_extBoom3                 Float        @default(0) // 연장 3번 길이
+  rd_extBoom4                 Float        @default(0) // 연장 4번 길이
+  rd_adapter2                 Float        @default(0) // 어뎁터 2번 길이
+  rd_flyFixLuffing            Float        @default(0) // 플라이, 픽스, 러핑 붐 길이
+  rd_flyFixLuffingAngle       Float        @default(0) // 플라이, 픽스, 러핑 각도
+  rd_distance1                Float        @default(0) // 메인붐 까지의 거리 d1
+  rd_distance2                Float        @default(0) // 메인붐에서 플라이, 픽스, 러핑일 경우 끝까지 거리 d2
+  rd_craneDistance            Float        @default(0) // 메인붐 중앙에서 크레인 차체 길이
+  rd_centerToBuildingDistance Float        @default(0) // 크레인 붐 중앙에서부터 작업건물까지의 거리
+  rd_centerToBlockDistance    Float        @default(0) // 크레인 붐 중앙에서부터 장애물까지의 거리
+  rd_craneToBuildingDistance  Float        @default(0) // 크레인 차체에서부터 작업건물까지의 거리
+  rd_craneToBlockDistance     Float        @default(0) // 크레인 차체에서부터 장애물까지의 거리
+  rd_totalDistance            Float        @default(0) // 전체 거리
+  rd_tableDistance            Float        @default(0) // 스펙 테이블의 거리
+  rd_height1                  Float        @default(0) // 메인붐의 높이
+  rd_height2                  Float        @default(0) // 플라이, 픽스, 러핑이 있을 경우 높이
+  rd_totalHeight              Float        @default(0) // 전체 높이
+  rd_marginHeight             Float        @default(0) // 여유 높이(헤드?를 달았을 때 내려오는 여유 높이)
+  rd_workingArea              Float        @default(0) // 작업 반경
+  rd_tableWeight              Float        @default(0) // 스펙 테이블의 무게
+  rd_counterWeight            String // 무게추
+  rd_overRear                 String // 크레인 뒤로 작업
+  rd_optional                 String // telescopable / optional
+  rd_safetyFactor             Float // 안전율
+  rd_craneLocation            String // 크레인 작업 방향. front, back, side
+  rd_workWeight               Float // 작업 무게
+  edgeDistance                edgeDistance @relation(fields: [edgeDistanceId], references: [ed_id]) // 여유거리 : 붐과 건물이 닿지 않도록 하는 최소 여유거리
+  edgeDistanceId              Int
+  workBuilding                workBuilding @relation(fields: [workBuildingId], references: [wb_id])
+  workBuildingId              Int
+  block                       block        @relation(fields: [blockId], references: [blk_id])
+  blockId                     Int
+  craneData                   craneData[]
 }
 
-model WorkBuilding {
-  id          Int           @id @default(autoincrement())
-  horizontal  Float
-  vertical    Float
-  height      Float
-  RiggingData RiggingData[]
+// 여유거리?
+model edgeDistance {
+  ed_id                      Int           @id @default(autoincrement())
+  ed_mainToBlock             Float         @default(0) // 크레인 메인붐 시작점에서 장애물까지 여유거리
+  ed_mainToBuilding          Float         @default(0) // 크레인 메인붐 시작점에서 작업건물까지 여유거리
+  ed_flyFixLuffingToBlock    Float         @default(0) // 플라이, 픽스, 러핑에서 장애물까지 여유거리
+  ed_flyFixLuffingToBuilding Float         @default(0) // 플라이, 픽스, 러핑에서 작업건물까지 여유거리
+  riggingData                riggingData[]
 }
 
-model Block {
-  id          Int           @id @default(autoincrement())
-  vertical1   Float
-  horizontal1 Float
-  height1     Float
-  vertical2   Float
-  height2     Float
-  RiggingData RiggingData[]
+// 작업건물 - 데이터 수집용
+model workBuilding {
+  wb_id         Int           @id @default(autoincrement())
+  wb_horizontal Float         @default(0) // 작업건물 가로 거리
+  wb_vertical   Float         @default(0) // 작업건물 세로 거리
+  wb_height     Float         @default(0) // 작업건물 높이
+  riggingData   riggingData[]
 }
 
-model OverWork {
-  id               Int              @id @default(autoincrement())
-  date             DateTime?
-  yearMonth        String?
-  yearMonthDay     String?
-  week             Int
-  workingTime      String
-  location         String
-  content          String
-  overWorkCategory OverWorkCategory
-  amount           Int
-  overWorkAuthor   User             @relation(fields: [overWorkAuthorId], references: [id])
+// 장애물 - 데이터 수집용
+model block {
+  blk_id          Int           @id @default(autoincrement())
+  blk_vertical1   Float         @default(0) // 장애물1부터 작업건물까지 거리
+  blk_horizontal1 Float         @default(0) // 장애물 
+  blk_height1     Float         @default(0) // 장애물1의 높이
+  blk_vertical2   Float         @default(0) // 장애물2의 거리 - 여유거리
+  blk_height2     Float         @default(0) // 장애물2의 높이
+  riggingData     riggingData[]
+}
+
+// 초과근무
+model overWork {
+  ow_id            Int               @id @default(autoincrement())
+  ow_createdAt     DateTime          @default(now())
+  ow_year          Int               @default(0) // 작업 연
+  ow_month         Int               @default(0) //작업 월
+  ow_date          Int               @default(0) // 작업 일
+  ow_week          Int               @default(0) // 작업 주
+  ow_workingTime   String            @default("") @db.VarChar(20) // 작업 시간
+  ow_location      String            @default("") @db.VarChar(30) // 작업 위치
+  ow_text          String            @default("") @db.VarChar(100) // 작업 내용
+  overWorkCategory overwork_category // 초과근무 카테고리
+  ow_amount        Int               @default(0) // 근무 수당
+  overWorkAuthor   user              @relation(fields: [overWorkAuthorId], references: [user_id])
   overWorkAuthorId Int
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
 }
 
-model File {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  url       String
-  post      Post?    @relation(fields: [postId], references: [id])
-  postId    Int?
+// 결제내역 - 수정 필요
+model purchaseHistory {
+  ph_id          Int         @id @default(autoincrement())
+  ph_createdAt   DateTime    @default(now())
+  ph_date        String      @default("") @db.VarChar(20) // 결제일
+  ph_cardCompany String      @default("") @db.VarChar(30) // 결제 카드사
+  ph_price       Int         @default(0) // 결제금액
+  ph_installment String      @default("") @db.VarChar(10) // 일시불, 할부
+  ph_receipt     String      @default("") @db.VarChar(10) // 전표 매입/미매입
+  paidCranes     paidCrane[]
+  user           user        @relation(fields: [user_id], references: [user_id])
+  user_id        Int
 }
 
-model PurchaseHistory {
-  id          Int              @id @default(autoincrement())
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-  date        String?
-  paidCranes  PaidCraneNames[]
-  cardCompany String?
-  price       Int
-  installment String? // 일시불, 할부
-  receipt     String? // 전표 미매입
-  user        User             @relation(fields: [userId], references: [id])
-  userId      Int
+// 구매한 크레인 정보
+model paidCrane {
+  pc_id             Int             @id @default(autoincrement())
+  pc_createdAt      DateTime        @default(now())
+  pc_craneName      String          @default("") @db.VarChar(30) // 구매한 크레인 이름
+  purchaseHistory   purchaseHistory @relation(fields: [purchaseHistoryId], references: [ph_id])
+  purchaseHistoryId Int
 }
 
-model PaidCraneNames {
-  id                Int              @id @default(autoincrement())
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  craneName         String
-  purchaseHistory   PurchaseHistory? @relation(fields: [purchaseHistoryId], references: [id])
-  purchaseHistoryId Int?
-}
-
-model TmpPurchaseHistory {
+// 임시 구매 내역
+model tmpPurchaseHistory {
   id          Int             @id @default(autoincrement())
   phoneNumber String          @unique
-  craneNames  TmpCraneNames[]
+  craneNames  tmpCraneNames[]
   price       Int
   authCode    String
   paid        Boolean         @default(false)
 }
 
-model TmpCraneNames {
+// 구매한 크레인 명
+model tmpCraneNames {
   id                   Int                 @id @default(autoincrement())
   craneName            String
-  TmpPurchaseHistory   TmpPurchaseHistory? @relation(fields: [tmpPurchaseHistoryId], references: [id])
+  TmpPurchaseHistory   tmpPurchaseHistory? @relation(fields: [tmpPurchaseHistoryId], references: [id])
   tmpPurchaseHistoryId Int?
 }
 
-enum PostCategory {
-  JOB
-  REPAIR
-  ETC
+enum post_category {
+  job
+  repair
+  free
 }
 
-enum OverWorkCategory {
-  EARLY
-  NIGHT
-  ALLNIGHT
-  WEEKEND
-  OVERTIME
+enum overwork_category {
+  early
+  night
+  allnight
+  weekend
+  overtime
 }
